@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RepJournal — Home</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="src/style.css">
+</head>
+<body>
+
+<!-- ============ DESKTOP TOP NAV (shown ≥800px) ============ -->
+<header class="topnav">
+  <img class="logo" src="public/images/logo-dark-theme.png" alt="RepJournal">
+
+
+  <nav class="nav">
+    <a href="#" class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+      Home
+    </a>
+    <a href="#" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      History
+    </a>
+    <a href="#" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+      Log workout
+    </a>
+    <a href="#" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 4.5-6 7-6s5.5 2 7 6"/></svg>
+      Profile
+    </a>
+  </nav>
+
+  <div class="nav-right">
+    <div class="avatar">RJ</div>
+  </div>
+</header>
+
+<!-- ============ MAIN CONTENT (shared by mobile + desktop) ============ -->
+<main class="main">
+
+  <div class="main-header">
+    <h1 class="greeting">Tuesday's session</h1>
+    <p class="greeting-sub">Last workout: Saturday · Pull Day</p>
+  </div>
+
+  <div class="streak-row">
+    <div class="streak-chip"><div class="num">14</div><div class="lbl">day streak</div></div>
+    <div class="streak-chip"><div class="num">3</div><div class="lbl">this week</div></div>
+    <div class="streak-chip"><div class="num">62</div><div class="lbl">total logged</div></div>
+  </div>
+
+  <a href="#" class="cta">
+    <div class="cta-title">Start a workout</div>
+    <div class="cta-sub">Pick exercises and log sets as you go</div>
+  </a>
+
+  <section>
+    <h2 class="section-title">Recent workouts</h2>
+    <div class="chalk-underline"></div>
+
+    <ul class="entry-list">
+      <li class="entry">
+        <span class="entry-day">Sat</span>
+        <span class="check">✓</span>
+        <span class="entry-body">
+          <span class="entry-title">Pull Day</span>
+          <span class="entry-meta">5 exercises · 18 sets</span>
+        </span>
+      </li>
+      <li class="entry">
+        <span class="entry-day">Thu</span>
+        <span class="check">✓</span>
+        <span class="entry-body">
+          <span class="entry-title">Push Day</span>
+          <span class="entry-meta">4 exercises · 15 sets</span>
+        </span>
+      </li>
+      <li class="entry">
+        <span class="entry-day">Tue</span>
+        <span class="check">✓</span>
+        <span class="entry-body">
+          <span class="entry-title">Leg Day</span>
+          <span class="entry-meta">6 exercises · 20 sets</span>
+        </span>
+      </li>
+      <li class="entry">
+        <span class="entry-day">Sun</span>
+        <span class="check">✓</span>
+        <span class="entry-body">
+          <span class="entry-title">Upper Body</span>
+          <span class="entry-meta">5 exercises · 16 sets</span>
+        </span>
+      </li>
+    </ul>
+  </section>
+
+</main>
+
+<!-- ============ MOBILE BOTTOM NAV (shown <800px) ============ -->
+<nav class="bottom-nav">
+  <a href="#" class="nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+    Home
+  </a>
+  <a href="#" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+    History
+  </a>
+  <a href="#" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+    Log
+  </a>
+  <a href="#" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 4.5-6 7-6s5.5 2 7 6"/></svg>
+    Profile
+  </a>
+</nav>
+
+</body>
+</html>
