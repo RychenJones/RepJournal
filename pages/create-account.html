@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RepJournal — Log in</title>
+<title>RepJournal — Create your account</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -12,8 +12,7 @@
 <link rel="stylesheet" href="/src/styles/global.css">
 <link rel="stylesheet" href="/src/styles/login+create-account.css">
 
-<link rel="apple-touch-icon" href="/images/favicon_io/apple-touch-icon.png">
-<link rel="icon" type="image/png" href="/images/favicon_io/favicon.ico">
+<link rel="apple-touch-icon" href="/images/app-icon.png">
 </head>
 <body class="login-body">
 
@@ -24,9 +23,14 @@
     <div class="login-mark">
       <img class="logo login-logo" src="/images/logo-dark-theme.png" alt="RepJournal">
     </div>
-    <p class="login-sub">Log your sets. Keep the streak going.</p>
+    <p class="login-sub">Start logging sets in a couple minutes.</p>
 
     <form class="login-form">
+
+      <label class="field">
+        <span class="field-label">First name</span>
+        <input class="field-input" type="text" name="first-name" placeholder="Alex" autocomplete="given-name" required>
+      </label>
 
       <label class="field">
         <span class="field-label">Username</span>
@@ -35,19 +39,19 @@
 
       <label class="field">
         <span class="field-label">Password</span>
-        <input class="field-input" type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+        <input class="field-input" type="password" name="password" placeholder="••••••••" autocomplete="new-password" required>
       </label>
 
-      <label class="remember">
-        <input type="checkbox" name="remember">
-        <span>Stay logged in</span>
+      <label class="field">
+        <span class="field-label">Confirm password</span>
+        <input class="field-input" type="password" name="confirm-password" placeholder="••••••••" autocomplete="new-password" required>
       </label>
 
-      <button type="submit" class="login-btn">Log in</button>
+      <button type="submit" class="login-btn">Create account</button>
 
     </form>
 
-    <p class="signup-line">New here? <a href="/pages/create-account.html" class="signup-link">Create an account</a></p>
+    <p class="signup-line">Already have an account? <a href="/login.html" class="signup-link">Log in</a></p>
 
   </div>
 
