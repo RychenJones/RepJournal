@@ -1,0 +1,169 @@
+/* ==========================================================
+   RepJournal — Login
+   Uses tokens + resets from global.css. Chalkboard theme,
+   orange accent. Single centered card, no top/bottom nav.
+   ========================================================== */
+
+.login-body {
+min-height: 100%;
+}
+
+.login-main {
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+padding: 32px 20px;
+}
+
+.login-card {
+width: 100%;
+max-width: 360px;
+padding: 36px 30px 30px;
+border: 1px dashed var(--ink-faint-2);
+border-radius: 10px;
+background: var(--panel);
+}
+
+/* ---------- wordmark ---------- */
+
+.login-mark {
+margin-bottom: 14px;
+}
+
+.login-logo {
+height: 30px;
+margin-left: -5px;
+}
+
+.login-sub {
+color: var(--ink-dim);
+font-size: 14px;
+margin-bottom: 28px;
+}
+
+/* ---------- form ---------- */
+
+.login-form {
+display: flex;
+flex-direction: column;
+gap: 18px;
+}
+
+.field {
+display: flex;
+flex-direction: column;
+gap: 7px;
+}
+
+.field-label {
+font-size: 12.5px;
+color: var(--ink-mid);
+}
+
+.field-input {
+appearance: none;
+background: transparent;
+border: none;
+border-bottom: 1px dashed var(--ink-faint-2);
+color: var(--ink);
+font-family: var(--font-body);
+font-size: 15px;
+padding: 8px 2px;
+transition: border-color 0.15s ease;
+}
+
+.field-input::placeholder {
+color: var(--ink-faint);
+}
+
+.field-input:focus {
+outline: none;
+border-bottom: 1px solid var(--accent);
+}
+
+.remember {
+display: flex;
+align-items: center;
+gap: 7px;
+margin-top: -4px;
+font-size: 12.5px;
+color: var(--ink-mid);
+}
+
+.remember input[type="checkbox"] {
+appearance: none;
+width: 15px;
+height: 15px;
+border: 1px dashed var(--ink-faint-2);
+border-radius: 3px;
+display: inline-block;
+position: relative;
+cursor: pointer;
+flex-shrink: 0;
+}
+
+.remember input[type="checkbox"]:checked {
+border-color: var(--accent);
+background: var(--accent-dim);
+}
+
+.remember input[type="checkbox"]:checked::after {
+content: "";
+position: absolute;
+left: 4px;
+top: 1px;
+width: 4px;
+height: 8px;
+border-right: 2px solid var(--accent);
+border-bottom: 2px solid var(--accent);
+transform: rotate(40deg);
+}
+
+.login-btn {
+margin-top: 6px;
+padding: 12px 16px;
+background: var(--accent);
+color: var(--bg);
+border: none;
+border-radius: 8px;
+font-family: var(--font-body);
+font-weight: 600;
+font-size: 15px;
+cursor: pointer;
+}
+
+.login-btn:hover {
+opacity: 0.92;
+}
+
+.login-btn:focus-visible,
+.field-input:focus-visible {
+outline: 2px solid var(--accent-2);
+outline-offset: 2px;
+}
+
+/* ---------- footer line ---------- */
+
+.signup-line {
+margin-top: 24px;
+text-align: center;
+font-size: 13.5px;
+color: var(--ink-dim);
+}
+
+.signup-link {
+color: var(--accent);
+text-decoration: underline;
+text-decoration-style: dashed;
+text-underline-offset: 3px;
+}
+
+/* ---------- reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+.login-btn,
+.field-input {
+transition: none;
+  }
+}
