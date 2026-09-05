@@ -135,6 +135,8 @@ ul {
     align-items: center;
     gap: 8px;
     padding: 9px 16px;
+    /* Reserve the active-state border so nav spacing never shifts between pages. */
+    border: 1px dashed transparent;
     border-radius: 8px;
     font-size: 14px;
     color: var(--ink-mid);

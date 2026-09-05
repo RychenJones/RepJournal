@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RepJournal — Log workout</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize@3.0.1/modern-normalize.min.css">
+<link rel="stylesheet" href="/src/styles/global.css">
+<link rel="stylesheet" href="/src/styles/log-workout.css">
+
+<script type="module" src="/src/main.js"></script>
+<script type="module" src="/src/js/log-workout.js" defer></script>
+</head>
+<body>
+
+<!-- ============ DESKTOP TOP NAV (shown ≥800px) ============ -->
+<header class="topnav">
+  <img class="logo" src="/images/logo-dark-theme.png" alt="RepJournal">
+
+  <nav class="nav">
+    <a href="/pages/dashboard.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+      Home
+    </a>
+    <a href="/pages/history.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      History
+    </a>
+    <a href="/pages/log-workout.html" class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+      Log workout
+    </a>
+    <a href="/pages/profile.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 4.5-6 7-6s5.5 2 7 6"/></svg>
+      Profile
+    </a>
+  </nav>
+
+  <div class="nav-right">
+    <div class="avatar">RJ</div>
+  </div>
+</header>
+
+<!-- ============ MAIN CONTENT (shared by mobile + desktop) ============ -->
+<main class="main">
+
+  <div class="main-header">
+    <h1 class="greeting">Log workout</h1>
+    <input type="date" id="session-date" class="session-date-input">
+  </div>
+
+  <section id="exercise-list" class="exercise-list">
+    <!-- exercise blocks are injected here by log-workout.js -->
+  </section>
+
+  <button type="button" id="add-exercise-btn" class="add-exercise-btn">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+    Add exercise
+  </button>
+
+</main>
+
+<!-- ============ STICKY FINISH BAR ============ -->
+<div class="finish-bar">
+  <div class="finish-summary">
+    <span id="finish-exercise-count">0 exercises</span>
+    <span class="dot">·</span>
+    <span id="finish-set-count">0 sets</span>
+  </div>
+  <button type="button" id="finish-workout-btn" class="finish-btn">Finish workout</button>
+</div>
+
+<!-- ============ TEMPLATES (cloned by log-workout.js) ============ -->
+<template id="exercise-template">
+  <article class="exercise-card">
+    <div class="exercise-head">
+      <input type="text" class="exercise-name-input" placeholder="Exercise name" autocomplete="off">
+      <button type="button" class="remove-exercise-btn" aria-label="Remove exercise">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div class="set-table">
+      <div class="set-row set-row-head">
+        <span class="col-set">Set</span>
+        <span class="col-weight">Weight</span>
+        <span class="col-reps">Reps</span>
+        <span class="col-rpe">RPE</span>
+        <span class="col-remove"></span>
+      </div>
+      <div class="set-rows"></div>
+    </div>
+
+    <button type="button" class="add-set-btn">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
+      Add set
+    </button>
+  </article>
+</template>
+
+<template id="set-row-template">
+  <div class="set-row">
+    <span class="col-set set-number">1</span>
+    <span class="col-weight">
+      <input type="number" inputmode="decimal" class="set-input weight-input" placeholder="0" min="0" step="0.5">
+      <span class="unit">lb</span>
+    </span>
+    <span class="col-reps">
+      <input type="number" inputmode="numeric" class="set-input reps-input" placeholder="0" min="0" step="1">
+    </span>
+    <span class="col-rpe">
+      <input type="number" inputmode="decimal" class="set-input rpe-input" placeholder="–" min="1" max="10" step="0.5">
+    </span>
+    <span class="col-remove">
+      <button type="button" class="remove-set-btn" aria-label="Remove set">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      </button>
+    </span>
+  </div>
+</template>
+
+<!-- ============ MOBILE BOTTOM NAV (shown <800px) ============ -->
+<nav class="bottom-nav">
+  <a href="/pages/dashboard.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+    Home
+  </a>
+  <a href="/pages/history.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+    History
+  </a>
+  <a href="/pages/log-workout.html" class="nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+    Log
+  </a>
+  <a href="/pages/profile.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 4.5-6 7-6s5.5 2 7 6"/></svg>
+    Profile
+  </a>
+</nav>
+
+</body>
+</html>
