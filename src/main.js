@@ -1,9 +1,9 @@
 // // Regular
-// import pb from './js/pocketbase.js';
+// import pb from './js/modules/pocketbase.js';
 // console.log(pb);
 
 // // Test health
-// import pb from './js/pocketbase.js';
+// import pb from './js/modules/pocketbase.js';
 
 // async function testPocketBase() {
 //     try {

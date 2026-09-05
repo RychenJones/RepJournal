@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RepJournal — Profile</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize@3.0.1/modern-normalize.min.css">
+<link rel="stylesheet" href="/src/styles/global.css">
+<link rel="stylesheet" href="/src/styles/profile.css">
+
+<script type="module" src="/src/main.js"></script>
+<script type="module" src="/src/js/profile.js" defer></script>
+</head>
+<body>
+
+<!-- ============ DESKTOP TOP NAV (shown ≥800px) ============ -->
+<header class="topnav">
+  <img class="logo" src="/images/logo-dark-theme.png" alt="RepJournal">
+
+  <nav class="nav">
+    <a href="/pages/dashboard.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+      Home
+    </a>
+    <a href="/pages/history.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+      History
+    </a>
+    <a href="/pages/log-workout.html" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+      Log workout
+    </a>
+    <a href="/pages/profile.html" class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 4.5-6 7-6s5.5 2 7 6"/></svg>
+      Profile
+    </a>
+  </nav>
+
+  <div class="nav-right">
+    <div class="avatar">RJ</div>
+  </div>
+</header>
+
+<!-- ============ MAIN CONTENT (shared by mobile + desktop) ============ -->
+<main class="main">
+
+  <div class="main-header">
+    <h1 class="greeting">Profile</h1>
+    <p class="greeting-sub">Manage your account details</p>
+  </div>
+
+  <!-- ---------- photo ---------- -->
+  <div class="photo-row">
+    <div class="photo-wrap">
+      <img id="photo-preview" class="profile-photo" src="" alt="Profile photo">
+      <span id="photo-fallback" class="profile-photo-fallback">RJ</span>
+      <button type="button" id="photo-edit-btn" class="photo-edit-btn" aria-label="Change photo">
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+      </button>
+      <input type="file" id="photo-input" accept="image/*" hidden>
+    </div>
+    <div class="photo-copy">
+      <p class="photo-name" id="photo-display-name">Alex</p>
+      <button type="button" id="photo-remove-btn" class="photo-remove-btn">Remove photo</button>
+    </div>
+  </div>
+
+  <!-- ---------- account details ---------- -->
+  <section class="profile-card">
+    <h2 class="card-title">Account</h2>
+
+    <form class="profile-form" id="account-form">
+      <label class="field">
+        <span class="field-label">First name</span>
+        <input class="field-input" type="text" name="first-name" id="first-name-input" value="Alex" autocomplete="given-name" required>
+      </label>
+
+      <label class="field">
+        <span class="field-label">Username</span>
+        <input class="field-input" type="text" name="username" id="username-input" value="alexlifts" autocomplete="username" required>
+      </label>
+
+      <button type="submit" class="save-btn">Save changes</button>
+    </form>
+  </section>
+
+  <!-- ---------- password ---------- -->
+  <section class="profile-card">
+    <h2 class="card-title">Password</h2>
+
+    <form class="profile-form" id="password-form">
+      <label class="field">
+        <span class="field-label">Current password</span>
+        <input class="field-input" type="password" name="current-password" placeholder="••••••••" autocomplete="current-password" required>
+      </label>
+
+      <label class="field">
+        <span class="field-label">New password</span>
+        <input class="field-input" type="password" name="new-password" placeholder="••••••••" autocomplete="new-password" required>
+      </label>
+
+      <label class="field">
+        <span class="field-label">Confirm new password</span>
+        <input class="field-input" type="password" name="confirm-password" placeholder="••••••••" autocomplete="new-password" required>
+      </label>
+      <p class="field-error" id="password-error" hidden>New passwords don't match.</p>
+
+      <button type="submit" class="save-btn">Update password</button>
+    </form>
+  </section>
+
+  <button type="button" class="logout-btn">Log out</button>
+
+</main>
+
+<!-- ============ MOBILE BOTTOM NAV (shown <800px) ============ -->
+<nav class="bottom-nav">
+  <a href="/pages/dashboard.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/></svg>
+    Home
+  </a>
+  <a href="/pages/history.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg>
+    History
+  </a>
+  <a href="/pages/log-workout.html" class="nav-item">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14M5 12h14"/></svg>
+    Log
+  </a>
+  <a href="/pages/profile.html" class="nav-item active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.5-4 4.5-6 7-6s5.5 2 7 6"/></svg>
+    Profile
+  </a>
+</nav>
+
+</body>
+</html>

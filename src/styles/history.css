@@ -1,0 +1,246 @@
+/* ==========================================================
+   RepJournal — History
+   Uses tokens + resets from global.css. Chalkboard theme,
+   orange accent. Page-specific: stat chips, month groups,
+   expandable workout entries with per-set detail.
+   ========================================================== */
+
+/* ---------- page layout ---------- */
+
+.main {
+max-width: 640px;
+margin: 0 auto;
+padding: 24px 20px 100px;
+}
+
+@media (min-width: 800px) {
+.main {
+padding: 40px 40px 60px;
+  }
+}
+
+.main-header {
+margin-bottom: 20px;
+}
+
+.greeting {
+font-family: var(--font-display);
+font-weight: 700;
+font-size: 34px;
+line-height: 1;
+color: var(--ink);
+}
+
+.greeting-sub {
+margin-top: 6px;
+font-size: 14px;
+color: var(--ink-dim);
+}
+
+/* ---------- stat chips (mirrors dashboard's streak row) ---------- */
+
+.streak-row {
+display: flex;
+gap: 10px;
+margin-bottom: 28px;
+}
+
+.streak-chip {
+flex: 1;
+text-align: center;
+padding: 14px 8px;
+border: 1px dashed var(--ink-faint-2);
+border-radius: 10px;
+background: var(--panel);
+}
+
+.streak-chip .num {
+font-family: var(--font-display);
+font-weight: 700;
+font-size: 26px;
+color: var(--accent);
+line-height: 1;
+}
+
+.streak-chip .lbl {
+margin-top: 4px;
+font-size: 11.5px;
+color: var(--ink-dim);
+}
+
+/* ---------- month groups ---------- */
+
+.history-groups {
+display: flex;
+flex-direction: column;
+gap: 32px;
+}
+
+.section-title {
+font-family: var(--font-display);
+font-weight: 600;
+font-size: 22px;
+color: var(--ink);
+}
+
+.chalk-underline {
+width: 46px;
+height: 2px;
+margin: 6px 0 14px;
+background: repeating-linear-gradient(90deg, var(--accent) 0, var(--accent) 5px, transparent 5px, transparent 9px);
+}
+
+.month-entries {
+display: flex;
+flex-direction: column;
+gap: 10px;
+}
+
+/* ---------- workout entry (collapsed summary row) ---------- */
+
+.history-entry {
+border: 1px dashed var(--ink-faint-2);
+border-radius: 10px;
+background: var(--panel);
+overflow: hidden;
+}
+
+.entry-summary {
+width: 100%;
+display: flex;
+align-items: center;
+gap: 14px;
+padding: 14px 16px;
+background: transparent;
+border: none;
+color: inherit;
+font-family: var(--font-body);
+text-align: left;
+cursor: pointer;
+}
+
+.entry-day {
+flex-shrink: 0;
+width: 38px;
+font-size: 12.5px;
+font-weight: 600;
+color: var(--ink-dim);
+text-align: center;
+}
+
+.entry-body {
+flex: 1;
+display: flex;
+flex-direction: column;
+gap: 2px;
+min-width: 0;
+}
+
+.entry-title {
+font-size: 15px;
+font-weight: 600;
+color: var(--ink);
+}
+
+.entry-meta {
+font-size: 12.5px;
+color: var(--ink-dim);
+}
+
+.entry-chevron {
+flex-shrink: 0;
+color: var(--ink-faint);
+transition: transform 0.15s ease;
+}
+
+.history-entry.open .entry-chevron {
+transform: rotate(180deg);
+color: var(--accent);
+}
+
+.entry-summary:hover .entry-chevron {
+color: var(--ink-mid);
+}
+
+/* ---------- workout entry (expanded detail) ---------- */
+
+.entry-detail {
+display: grid;
+grid-template-rows: 0fr;
+transition: grid-template-rows 0.2s ease;
+}
+
+.history-entry.open .entry-detail {
+grid-template-rows: 1fr;
+}
+
+.entry-exercises {
+overflow: hidden;
+padding: 0 16px;
+border-top: 1px dashed var(--ink-faint-2);
+margin-top: 0;
+}
+
+.history-entry:not(.open) .entry-exercises {
+border-top: none;
+}
+
+.detail-exercise {
+padding: 12px 0;
+}
+
+.detail-exercise + .detail-exercise {
+border-top: 1px dashed var(--ink-faint-2);
+}
+
+.detail-exercise-name {
+font-size: 13.5px;
+font-weight: 600;
+color: var(--ink-mid);
+margin-bottom: 6px;
+}
+
+.detail-set-list {
+display: flex;
+flex-direction: column;
+gap: 3px;
+}
+
+.detail-set {
+display: flex;
+gap: 10px;
+font-size: 13px;
+color: var(--ink-dim);
+}
+
+.detail-set-num {
+width: 14px;
+flex-shrink: 0;
+color: var(--ink-faint);
+}
+
+.detail-set-line {
+color: var(--ink);
+}
+
+.detail-set-line .rpe-tag {
+color: var(--accent-2);
+}
+
+/* ---------- empty state ---------- */
+
+.empty-state {
+border: 1px dashed var(--ink-faint-2);
+border-radius: 10px;
+padding: 32px 20px;
+text-align: center;
+color: var(--ink-dim);
+font-size: 14px;
+}
+
+/* ---------- focus-visible ---------- */
+
+.entry-summary:focus-visible {
+outline: 2px solid var(--accent-2);
+outline-offset: -2px;
+}
