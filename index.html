@@ -12,6 +12,8 @@
 <link rel="stylesheet" href="/src/styles/global.css">
 <link rel="stylesheet" href="/src/styles/login+create-account.css">
 
+<script type="module" src="/src/js/login.js"></script>
+
 <link rel="apple-touch-icon" href="/images/favicon_io/apple-touch-icon.png">
 <link rel="icon" type="image/png" href="/images/favicon_io/favicon.ico">
 </head>
@@ -19,37 +21,39 @@
 
 <main class="login-main">
 
-  <div class="login-card">
+<div class="login-card">
 
-    <div class="login-mark">
-      <img class="logo login-logo" src="/images/logo-dark-theme.png" alt="RepJournal">
-    </div>
-    <p class="login-sub">Log your sets. Keep the streak going.</p>
+<div class="login-mark">
+<img class="logo login-logo" src="/images/logo-dark-theme.png" alt="RepJournal">
+</div>
+<p class="login-sub">Log your sets. Keep the streak going.</p>
 
-    <form class="login-form">
+<form class="login-form" novalidate>
 
-      <label class="field">
-        <span class="field-label">Username</span>
-        <input class="field-input" type="text" name="username" placeholder="yourusername" autocomplete="username" required>
-      </label>
+<label class="field">
+<span class="field-label">Username</span>
+<input class="field-input" id="username" type="text" name="username" placeholder="yourusername" autocomplete="username" required>
+<span class="field-error" id="username-error" aria-live="polite"></span>
+</label>
 
-      <label class="field">
-        <span class="field-label">Password</span>
-        <input class="field-input" type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
-      </label>
+<label class="field">
+<span class="field-label">Password</span>
+<input class="field-input" id="password" type="password" name="password" placeholder="••••••••" autocomplete="current-password" required>
+<span class="field-error" id="password-error" aria-live="polite"></span>
+</label>
 
-      <label class="remember">
-        <input type="checkbox" name="remember">
-        <span>Stay logged in</span>
-      </label>
+<label class="remember">
+<input type="checkbox" id="remember" name="remember">
+<span>Stay logged in</span>
+</label>
 
-      <button type="submit" class="login-btn">Log in</button>
+<button type="submit" class="login-btn">Log in</button>
 
-    </form>
+</form>
 
-    <p class="signup-line">New here? <a href="/pages/create-account.html" class="signup-link">Create an account</a></p>
+<p class="signup-line">New here? <a href="/pages/create-account.html" class="signup-link">Create an account</a></p>
 
-  </div>
+</div>
 
 </main>
 
