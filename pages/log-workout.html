@@ -50,8 +50,16 @@
 
   <div class="main-header">
     <h1 class="greeting">Log workout</h1>
-    <input type="date" id="session-date" class="session-date-input">
+    <div class="workout-meta">
+      <div class="workout-name-field">
+        <input type="text" id="workout-name" class="workout-name-input" placeholder="Workout name" autocomplete="off">
+        <span class="field-error" id="workout-name-error" aria-live="polite"></span>
+      </div>
+      <input type="date" id="session-date" class="session-date-input">
+    </div>
   </div>
+
+  <p class="field-error form-error" id="form-error" aria-live="polite"></p>
 
   <section id="exercise-list" class="exercise-list">
     <!-- exercise blocks are injected here by log-workout.js -->
@@ -74,11 +82,14 @@
   <button type="button" id="finish-workout-btn" class="finish-btn">Finish workout</button>
 </div>
 
-<!-- ============ TEMPLATES (cloned by log-workout.js) ============ -->
+<!-- ============ TEMPLATES (cloned by render.js) ============ -->
 <template id="exercise-template">
   <article class="exercise-card">
     <div class="exercise-head">
-      <input type="text" class="exercise-name-input" placeholder="Exercise name" autocomplete="off">
+      <div class="exercise-name-field">
+        <input type="text" class="exercise-name-input" placeholder="Exercise name" autocomplete="off">
+        <span class="field-error exercise-name-error" aria-live="polite"></span>
+      </div>
       <button type="button" class="remove-exercise-btn" aria-label="Remove exercise">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
       </button>
@@ -95,6 +106,8 @@
       <div class="set-rows"></div>
     </div>
 
+    <span class="field-error exercise-sets-error" aria-live="polite"></span>
+
     <button type="button" class="add-set-btn">
       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg>
       Add set
@@ -103,23 +116,26 @@
 </template>
 
 <template id="set-row-template">
-  <div class="set-row">
-    <span class="col-set set-number">1</span>
-    <span class="col-weight">
-      <input type="number" inputmode="decimal" class="set-input weight-input" placeholder="0" min="0" step="0.5">
-      <span class="unit">lb</span>
-    </span>
-    <span class="col-reps">
-      <input type="number" inputmode="numeric" class="set-input reps-input" placeholder="0" min="0" step="1">
-    </span>
-    <span class="col-rpe">
-      <input type="number" inputmode="decimal" class="set-input rpe-input" placeholder="–" min="1" max="10" step="0.5">
-    </span>
-    <span class="col-remove">
-      <button type="button" class="remove-set-btn" aria-label="Remove set">
-        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
-      </button>
-    </span>
+  <div class="set-row-wrap">
+    <div class="set-row">
+      <span class="col-set set-number">1</span>
+      <span class="col-weight">
+        <input type="number" inputmode="decimal" class="set-input weight-input" placeholder="0" min="0" step="0.5">
+        <span class="unit">lb</span>
+      </span>
+      <span class="col-reps">
+        <input type="number" inputmode="numeric" class="set-input reps-input" placeholder="0" min="0" step="1">
+      </span>
+      <span class="col-rpe">
+        <input type="number" inputmode="decimal" class="set-input rpe-input" placeholder="–" min="1" max="10" step="0.5">
+      </span>
+      <span class="col-remove">
+        <button type="button" class="remove-set-btn" aria-label="Remove set">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+        </button>
+      </span>
+    </div>
+    <span class="field-error set-row-error" aria-live="polite"></span>
   </div>
 </template>
 

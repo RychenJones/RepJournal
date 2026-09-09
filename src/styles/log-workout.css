@@ -313,6 +313,63 @@ color: var(--ink-faint);
 cursor: not-allowed;
 }
 
+/* ---------- validation ---------- */
+
+.field-error {
+  font-size: 12px;
+  color: var(--error, #e5484d);
+  min-height: 14px;
+  display: none;
+}
+
+.field-error:not(:empty) {
+  display: block;
+}
+
+.form-error {
+  margin: -8px 0 12px;
+  font-size: 13px;
+}
+
+.workout-name-input.is-invalid,
+.exercise-name-input.is-invalid,
+.weight-input.is-invalid,
+.reps-input.is-invalid,
+.rpe-input.is-invalid {
+  border-color: var(--error, #e5484d);
+}
+
+/* ---------- workout name field ---------- */
+
+.workout-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 200px;
+}
+
+.workout-name-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.workout-name-input {
+  width: 100%;
+  font-family: var(--font-body);
+  font-size: 15px;
+  padding: 6px 2px;
+  border: none;
+  border-bottom: 1px dashed var(--ink-faint-2);
+  background: transparent;
+  color: var(--ink);
+}
+
+.workout-name-input:focus {
+  outline: none;
+  border-bottom: 1px solid var(--accent);
+}
+
 /* room above the mobile bottom nav so the finish bar doesn't collide with it */
 @media (max-width: 799px) {
 .finish-bar {

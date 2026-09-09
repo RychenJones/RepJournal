@@ -1096,6 +1096,10 @@ pb.realtime.onDisconnect = function(activeSubscriptions)
 
 
 ## Development
+
+> The build setup is currently a little outdated and requires a JS runtime compatible with `rollup-plugin-ts`.
+> It will be refactored in the future, but for the time being if you want to make changes to the code please use Node.js <= v21.0.0.
+
 ```sh
 # run unit tests
 npm test
