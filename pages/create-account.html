@@ -1,67 +1,120 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RepJournal — Create your account</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RepJournal — Create your account</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize@3.0.1/modern-normalize.min.css">
-<link rel="stylesheet" href="/src/styles/global.css">
-<link rel="stylesheet" href="/src/styles/login+create-account.css">
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/modern-normalize@3.0.1/modern-normalize.min.css"
+    />
+    <link rel="stylesheet" href="/src/styles/global.css" />
+    <link rel="stylesheet" href="/src/styles/login+create-account.css" />
 
-<script type="module" src="/src//js/create-account.js"></script>
+    <script type="module" src="/src//js/create-account.js"></script>
 
-<link rel="apple-touch-icon" href="/images/app-icon.png">
-</head>
-<body class="login-body">
+    <link rel="apple-touch-icon" href="/images/app-icon.png" />
+  </head>
+  <body class="login-body">
+    <main class="login-main">
+      <div class="login-card">
+        <div class="login-mark">
+          <img
+            class="logo login-logo"
+            src="/images/logo-dark-theme.png"
+            alt="RepJournal"
+          />
+        </div>
+        <p class="login-sub">Start logging sets in a couple minutes.</p>
 
-<main class="login-main">
+        <form class="login-form" novalidate>
+          <label class="field">
+            <span class="field-label">First name</span>
+            <input
+              class="field-input"
+              id="first-name"
+              type="text"
+              name="first-name"
+              placeholder="Alex"
+              autocomplete="given-name"
+              required
+            />
+            <span
+              class="field-error"
+              id="first-name-error"
+              aria-live="polite"
+            ></span>
+          </label>
 
-  <div class="login-card">
+          <label class="field">
+            <span class="field-label">Username</span>
+            <input
+              class="field-input"
+              id="username"
+              type="text"
+              name="username"
+              placeholder="yourusername"
+              autocomplete="username"
+              required
+            />
+            <span
+              class="field-error"
+              id="username-error"
+              aria-live="polite"
+            ></span>
+          </label>
 
-    <div class="login-mark">
-      <img class="logo login-logo" src="/images/logo-dark-theme.png" alt="RepJournal">
-    </div>
-    <p class="login-sub">Start logging sets in a couple minutes.</p>
+          <label class="field">
+            <span class="field-label">Password</span>
+            <input
+              class="field-input"
+              id="password"
+              type="password"
+              name="password"
+              placeholder="••••••••"
+              autocomplete="new-password"
+              required
+            />
+            <span
+              class="field-error"
+              id="password-error"
+              aria-live="polite"
+            ></span>
+          </label>
 
-    <form class="login-form" novalidate>
+          <label class="field">
+            <span class="field-label">Confirm password</span>
+            <input
+              class="field-input"
+              id="confirm-password"
+              type="password"
+              name="confirm-password"
+              placeholder="••••••••"
+              autocomplete="new-password"
+              required
+            />
+            <span
+              class="field-error"
+              id="confirm-password-error"
+              aria-live="polite"
+            ></span>
+          </label>
 
-      <label class="field">
-        <span class="field-label">First name</span>
-        <input class="field-input" id="first-name" type="text" name="first-name" placeholder="Alex" autocomplete="given-name" required>
-        <span class="field-error" id="first-name-error" aria-live="polite"></span>
-      </label>
+          <button type="submit" class="login-btn">Create account</button>
+        </form>
 
-      <label class="field">
-        <span class="field-label">Username</span>
-        <input class="field-input" id="username" type="text" name="username" placeholder="yourusername" autocomplete="username" required>
-        <span class="field-error" id="username-error" aria-live="polite"></span>
-      </label>
-
-      <label class="field">
-        <span class="field-label">Password</span>
-        <input class="field-input" id="password" type="password" name="password" placeholder="••••••••" autocomplete="new-password" required>
-        <span class="field-error" id="password-error" aria-live="polite"></span>
-      </label>
-
-      <label class="field">
-        <span class="field-label">Confirm password</span>
-        <input class="field-input" id="confirm-password" type="password" name="confirm-password" placeholder="••••••••" autocomplete="new-password" required>
-        <span class="field-error" id="confirm-password-error" aria-live="polite"></span>
-      </label>
-
-      <button type="submit" class="login-btn">Create account</button>
-
-    </form>
-
-    <p class="signup-line">Already have an account? <a href="/login.html" class="signup-link">Log in</a></p>
-
-  </div>
-
-</main>
-
-</body>
+        <p class="signup-line">
+          Already have an account?
+          <a href="/login.html" class="signup-link">Log in</a>
+        </p>
+      </div>
+    </main>
+  </body>
 </html>

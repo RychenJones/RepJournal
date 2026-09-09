@@ -13,12 +13,6 @@ margin: 0 auto;
 padding: 24px 20px 140px;
 }
 
-@media (min-width: 800px) {
-.main {
-padding: 40px 40px 120px;
-  }
-}
-
 .main-header {
 margin-bottom: 24px;
 }
@@ -370,6 +364,19 @@ cursor: not-allowed;
   border-bottom: 1px solid var(--accent);
 }
 
+/* ---------- focus-visible ---------- */
+
+.remove-exercise-btn:focus-visible,
+.remove-set-btn:focus-visible,
+.add-set-btn:focus-visible,
+.add-exercise-btn:focus-visible,
+.finish-btn:focus-visible,
+.exercise-name-input:focus-visible,
+.set-input:focus-visible {
+outline: 2px solid var(--accent-2);
+outline-offset: 2px;
+}
+
 /* room above the mobile bottom nav so the finish bar doesn't collide with it */
 @media (max-width: 799px) {
 .finish-bar {
@@ -382,17 +389,8 @@ bottom: 78px;
 padding-left: 40px;
 padding-right: 40px;
   }
-}
 
-/* ---------- focus-visible ---------- */
-
-.remove-exercise-btn:focus-visible,
-.remove-set-btn:focus-visible,
-.add-set-btn:focus-visible,
-.add-exercise-btn:focus-visible,
-.finish-btn:focus-visible,
-.exercise-name-input:focus-visible,
-.set-input:focus-visible {
-outline: 2px solid var(--accent-2);
-outline-offset: 2px;
+.main {
+padding: 40px 40px 120px;
+  }
 }

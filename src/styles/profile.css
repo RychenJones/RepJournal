@@ -13,12 +13,6 @@ margin: 0 auto;
 padding: 24px 20px 100px;
 }
 
-@media (min-width: 800px) {
-.main {
-padding: 40px 40px 60px;
-  }
-}
-
 .main-header {
 margin-bottom: 24px;
 }
@@ -244,4 +238,10 @@ color: var(--accent);
 .logout-btn:focus-visible {
 outline: 2px solid var(--accent-2);
 outline-offset: 2px;
+}
+
+@media (min-width: 800px) {
+.main {
+padding: 40px 40px 60px;
+  }
 }
