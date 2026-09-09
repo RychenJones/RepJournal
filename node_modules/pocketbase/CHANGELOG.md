@@ -1,3 +1,8 @@
+## 0.28.1
+
+- Minor optimization and correctness fix for `pb.filter()` to execute in a single pass and avoid regex chaining issues.
+
+
 ## 0.28.0
 
 - Added `pb.logs.truncate()` handler for the new endpoint in the upcoming PocketBase v0.40.0.
