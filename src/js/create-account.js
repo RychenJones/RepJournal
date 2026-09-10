@@ -6,7 +6,7 @@
 
 import { login } from './modules/auth.js';
 import { isUsernameTaken, createUser } from './modules/api/users.js';
-import { validateLength, valuesMatch, showError, clearError } from './modules/validation.js';
+import { validateLength, valuesMatch, showError, clearError, validateField, validateForm } from './modules/validation.js';
 import {
   NAME_MIN_LENGTH,
   NAME_MAX_LENGTH,
@@ -42,26 +42,6 @@ const fields = {
   },
 };
 
-function validateField(key) {
-  const field = fields[key];
-  const message = field.validate(field.input.value.trim());
-  if (message) {
-    showError(field.input, field.error, message);
-    return false;
-  }
-  clearError(field.input, field.error);
-  return true;
-}
-
-function validateForm() {
-  let isValid = true;
-  for (const key of Object.keys(fields)) {
-    const fieldIsValid = validateField(key);
-    if (!fieldIsValid) isValid = false;
-  }
-  return isValid;
-}
-
 function setSubmitting(isSubmitting) {
   submitBtn.disabled = isSubmitting;
   submitBtn.textContent = isSubmitting ? 'Creating account…' : 'Create account';
@@ -88,7 +68,7 @@ function handlePocketbaseError(error) {
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const isValid = validateForm();
+  const isValid = validateForm(fields);
   if (!isValid) {
     const firstInvalidKey = Object.keys(fields).find(
       (key) => fields[key].input.classList.contains('is-invalid')

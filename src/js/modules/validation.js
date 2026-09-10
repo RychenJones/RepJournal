@@ -21,6 +21,30 @@ export function valuesMatch(a, b, message) {
   return a === b ? '' : message;
 }
 
+export function validateField(fields, key) {
+  const field = fields[key];
+  const message = field.validate(field.input.value.trim());
+
+  if (message) {
+    showError(field.input, field.error, message);
+    return false;
+  }
+
+  clearError(field.input, field.error);
+  return true;
+}
+
+export function validateForm(fields) {
+  let isValid = true;
+
+  for (const key of Object.keys(fields)) {
+    const fieldIsValid = validateField(fields, key);
+    if (!fieldIsValid) isValid = false;
+  }
+
+  return isValid;
+}
+
 export function showError(input, errorEl, message) {
   input.classList.add('is-invalid');
   errorEl.textContent = message;
