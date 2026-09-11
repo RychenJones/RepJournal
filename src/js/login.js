@@ -3,7 +3,7 @@
 // re-enforce signup-time length rules) + PocketBase authentication.
 
 import { login, redirectIfAuthenticated } from './modules/auth.js';
-import { validateRequired, showError, clearError } from './modules/validation.js';
+import { validateRequired, showError, validateField, validateForm } from './modules/validation.js';
 
 // If there's already a valid session, skip the login form entirely.
 redirectIfAuthenticated();
@@ -24,26 +24,6 @@ const fields = {
   },
 };
 
-function validateField(key) {
-  const field = fields[key];
-  const message = field.validate(field.input.value.trim());
-  if (message) {
-    showError(field.input, field.error, message);
-    return false;
-  }
-  clearError(field.input, field.error);
-  return true;
-}
-
-function validateForm() {
-  let isValid = true;
-  for (const key of Object.keys(fields)) {
-    const fieldIsValid = validateField(key);
-    if (!fieldIsValid) isValid = false;
-  }
-  return isValid;
-}
-
 function setSubmitting(isSubmitting) {
   submitBtn.disabled = isSubmitting;
   submitBtn.textContent = isSubmitting ? 'Logging in…' : 'Log in';
@@ -59,7 +39,7 @@ function handlePocketbaseError(error) {
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
 
-  const isValid = validateForm();
+  const isValid = validateForm(fields);
   if (!isValid) {
     const firstInvalidKey = Object.keys(fields).find(
       (key) => fields[key].input.classList.contains('is-invalid')
