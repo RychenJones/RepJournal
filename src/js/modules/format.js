@@ -8,6 +8,11 @@ export function formatDayAbbrev(dateStr) {
   return new Date(`${dateStr}T00:00:00`).toLocaleDateString(undefined, { weekday: 'short' });
 }
 
+export function formatWeekdayLong(date) {
+  const parsedDate = typeof date === 'string' ? new Date(`${date}T00:00:00`) : date;
+  return parsedDate.toLocaleDateString(undefined, { weekday: 'long' });
+}
+
 export function formatMonthLabel(dateStr) {
   return new Date(`${dateStr}T00:00:00`).toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
 }

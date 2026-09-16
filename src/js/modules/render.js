@@ -1,14 +1,21 @@
-import { formatDayAbbrev, formatMonthLabel, formatSetLine } from './format.js';
+import { formatDayAbbrev, formatMonthLabel, formatSetLine, formatWeekdayLong } from './format.js';
+import { computeDashboardStats } from './stats.js';
 
-function countHistorySets(workout) {
+function countSets(workout) {
   return workout.exercises.reduce((totalSets, exercise) => totalSets + exercise.sets.length, 0);
 }
+
+// ---------------------------------------------------------------------------
+// History page
+// ---------------------------------------------------------------------------
 
 export function buildHistoryEntry(workout, historyTemplates) {
   const {
     historyEntryTemplate,
     historyDetailExerciseTemplate,
     historyDetailSetTemplate,
+    onEdit,
+    onDelete,
   } = historyTemplates;
 
   const historyEntry = historyEntryTemplate.content.firstElementChild.cloneNode(true);
@@ -16,7 +23,7 @@ export function buildHistoryEntry(workout, historyTemplates) {
   historyEntry.querySelector('.entry-day').textContent = formatDayAbbrev(workout.date);
   historyEntry.querySelector('.entry-title').textContent = workout.title;
   historyEntry.querySelector('.entry-meta').textContent =
-    `${workout.exercises.length} exercise${workout.exercises.length === 1 ? '' : 's'} · ${countHistorySets(workout)} sets`;
+    `${workout.exercises.length} exercise${workout.exercises.length === 1 ? '' : 's'} · ${countSets(workout)} sets`;
 
   const historyExercisesContainer = historyEntry.querySelector('.entry-exercises');
 
@@ -47,9 +54,30 @@ export function buildHistoryEntry(workout, historyTemplates) {
     historyExercisesContainer.appendChild(historyExercise);
   });
 
-  historyEntry.querySelector('.entry-summary').addEventListener('click', () => {
-    historyEntry.classList.toggle('open');
-  });
+  const toggleOpen = () => historyEntry.classList.toggle('open');
+
+  historyEntry.querySelector('.entry-summary').addEventListener('click', toggleOpen);
+
+  const expandBtn = historyEntry.querySelector('.expand-toggle-btn');
+  if (expandBtn) {
+    expandBtn.addEventListener('click', toggleOpen);
+  }
+
+  const editBtn = historyEntry.querySelector('.edit-entry-btn');
+  if (editBtn && onEdit) {
+    editBtn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      onEdit(workout, historyEntry);
+    });
+  }
+
+  const deleteBtn = historyEntry.querySelector('.delete-entry-btn');
+  if (deleteBtn && onDelete) {
+    deleteBtn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      onDelete(workout, historyEntry);
+    });
+  }
 
   return historyEntry;
 }
@@ -63,6 +91,8 @@ export function renderHistoryPage(historyEntries, historyRenderConfig) {
     historyEntryTemplate,
     historyDetailExerciseTemplate,
     historyDetailSetTemplate,
+    onEdit,
+    onDelete,
   } = historyRenderConfig;
 
   historyGroupsContainer.innerHTML = '';
@@ -100,10 +130,62 @@ export function renderHistoryPage(historyEntries, historyRenderConfig) {
           historyEntryTemplate,
           historyDetailExerciseTemplate,
           historyDetailSetTemplate,
+          onEdit,
+          onDelete,
         })
       );
     });
 
     historyGroupsContainer.appendChild(monthGroup);
+  });
+}
+
+// ---------------------------------------------------------------------------
+// Dashboard page
+// ---------------------------------------------------------------------------
+
+export function buildDashboardEntry(workout, entryTemplate) {
+  const entry = entryTemplate.content.firstElementChild.cloneNode(true);
+
+  entry.querySelector('.entry-day').textContent = formatDayAbbrev(workout.date);
+  entry.querySelector('.entry-title').textContent = workout.title;
+  entry.querySelector('.entry-meta').textContent =
+    `${workout.exercises.length} exercise${workout.exercises.length === 1 ? '' : 's'} · ${countSets(workout)} sets`;
+
+  return entry;
+}
+
+export function renderDashboardPage(workouts, dashboardConfig) {
+  const {
+    greetingSubEl,
+    thisWeekEl,
+    perMonthEl,
+    totalEl,
+    entryListEl,
+    emptyStateEl,
+    entryTemplate,
+    maxEntries = 5,
+  } = dashboardConfig;
+
+  const stats = computeDashboardStats(workouts);
+  thisWeekEl.textContent = stats.thisWeek;
+  perMonthEl.textContent = stats.perMonth;
+  totalEl.textContent = stats.total;
+
+  entryListEl.innerHTML = '';
+
+  if (workouts.length === 0) {
+    emptyStateEl.hidden = false;
+    greetingSubEl.textContent = 'No workouts logged yet';
+    return;
+  }
+
+  emptyStateEl.hidden = true;
+
+  const mostRecent = workouts[0];
+  greetingSubEl.textContent = `Last workout: ${formatWeekdayLong(mostRecent.date)} · ${mostRecent.title}`;
+
+  workouts.slice(0, maxEntries).forEach((workout) => {
+    entryListEl.appendChild(buildDashboardEntry(workout, entryTemplate));
   });
 }

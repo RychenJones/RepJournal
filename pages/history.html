@@ -85,20 +85,20 @@
     <main class="main">
       <div class="main-header">
         <h1 class="greeting">History</h1>
-        <p class="greeting-sub" id="history-summary">62 workouts logged</p>
+        <p class="greeting-sub" id="history-summary">Loading…</p>
       </div>
 
       <div class="streak-row">
         <div class="streak-chip">
-          <div class="num">3</div>
+          <div class="num" id="stat-this-week">0</div>
           <div class="lbl">this week</div>
         </div>
         <div class="streak-chip">
-          <div class="num">9</div>
+          <div class="num" id="stat-per-month">0</div>
           <div class="lbl">per month</div>
         </div>
         <div class="streak-chip">
-          <div class="num">62</div>
+          <div class="num" id="stat-total">0</div>
           <div class="lbl">total logged</div>
         </div>
       </div>
@@ -108,7 +108,7 @@
       </div>
 
       <p id="empty-state" class="empty-state" hidden>
-        No workouts logged yet — head to Log workout to start your streak.
+        No workouts logged yet — head to 'Log workout' to start your streak.
       </p>
     </main>
 
@@ -123,25 +123,62 @@
 
     <template id="history-entry-template">
       <article class="history-entry">
-        <button type="button" class="entry-summary">
-          <span class="entry-day"></span>
-          <span class="entry-body">
-            <span class="entry-title"></span>
-            <span class="entry-meta"></span>
-          </span>
-          <svg
-            class="entry-chevron"
-            viewBox="0 0 24 24"
-            width="16"
-            height="16"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-          >
-            <path d="m6 9 6 6 6-6" />
-          </svg>
-        </button>
+        <div class="entry-row">
+          <button type="button" class="entry-summary">
+            <span class="entry-day"></span>
+            <span class="entry-body">
+              <span class="entry-title"></span>
+              <span class="entry-meta"></span>
+            </span>
+          </button>
+          <button type="button" class="edit-entry-btn" aria-label="Edit workout">
+            <svg
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 20h9" />
+              <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4Z" />
+            </svg>
+          </button>
+          <button type="button" class="delete-entry-btn" aria-label="Delete workout">
+            <svg
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 6h18" />
+              <path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+              <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+              <path d="M10 11v6" />
+              <path d="M14 11v6" />
+            </svg>
+          </button>
+          <button type="button" class="expand-toggle-btn" aria-label="Toggle details">
+            <svg
+              class="entry-chevron"
+              viewBox="0 0 24 24"
+              width="16"
+              height="16"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="m6 9 6 6 6-6" />
+            </svg>
+          </button>
+        </div>
         <div class="entry-detail">
           <div class="entry-exercises"></div>
         </div>
@@ -159,6 +196,70 @@
       <div class="detail-set">
         <span class="detail-set-num"></span>
         <span class="detail-set-line"></span>
+      </div>
+    </template>
+
+    <!-- ============ EDIT-MODE TEMPLATES (cloned by history.js) ============ -->
+    <template id="entry-edit-template">
+      <div class="entry-edit">
+        <div class="edit-workout-meta">
+          <div class="edit-field">
+            <label class="edit-label">Workout name</label>
+            <input type="text" class="workout-name-input" autocomplete="off" />
+          </div>
+          <div class="edit-field">
+            <label class="edit-label">Date</label>
+            <input type="date" class="session-date-input" />
+          </div>
+        </div>
+
+        <div class="edit-exercises"></div>
+
+        <p class="field-error edit-error" aria-live="polite"></p>
+
+        <div class="edit-actions">
+          <button type="button" class="cancel-edit-btn">Cancel</button>
+          <button type="button" class="save-edit-btn">Save changes</button>
+        </div>
+      </div>
+    </template>
+
+    <template id="edit-exercise-template">
+      <div class="edit-exercise">
+        <input type="text" class="exercise-name-input" autocomplete="off" />
+        <div class="set-table">
+          <div class="set-row set-row-head">
+            <span class="col-set">Set</span>
+            <span class="col-weight">Weight</span>
+            <span class="col-reps">Reps</span>
+            <span class="col-rpe">RPE</span>
+          </div>
+          <div class="edit-set-rows"></div>
+        </div>
+      </div>
+    </template>
+
+    <template id="edit-set-row-template">
+      <div class="set-row">
+        <span class="col-set set-number"></span>
+        <span class="col-weight">
+          <input type="number" inputmode="decimal" class="set-input weight-input" min="0" step="0.5" />
+          <span class="unit">lb</span>
+        </span>
+        <span class="col-reps">
+          <input type="number" inputmode="numeric" class="set-input reps-input" min="0" step="1" />
+        </span>
+        <span class="col-rpe">
+          <input
+            type="number"
+            inputmode="decimal"
+            class="set-input rpe-input"
+            min="1"
+            max="10"
+            step="0.5"
+            placeholder="–"
+          />
+        </span>
       </div>
     </template>
 
