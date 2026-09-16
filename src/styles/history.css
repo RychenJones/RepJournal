@@ -107,6 +107,8 @@ border-color: var(--accent);
 .entry-row {
 display: flex;
 align-items: center;
+gap: 2px;
+padding-right: 10px;
 }
 
 .entry-summary {
@@ -121,6 +123,7 @@ color: inherit;
 font-family: var(--font-body);
 text-align: left;
 cursor: pointer;
+min-width: 0;
 }
 
 .entry-summary:disabled {
@@ -128,14 +131,15 @@ cursor: default;
 opacity: 0.7;
 }
 
-.edit-entry-btn {
+.edit-entry-btn,
+.delete-entry-btn,
+.expand-toggle-btn {
 flex-shrink: 0;
 display: flex;
 align-items: center;
 justify-content: center;
 width: 30px;
 height: 30px;
-margin-right: 12px;
 border: none;
 background: transparent;
 color: var(--ink-faint);
@@ -146,6 +150,23 @@ border-radius: 6px;
 .edit-entry-btn:hover {
 color: var(--accent);
 background: var(--accent-dim);
+}
+
+.delete-entry-btn:hover {
+color: var(--error, #e5484d);
+background: rgba(229, 72, 77, 0.12);
+}
+
+.expand-toggle-btn:hover .entry-chevron {
+color: var(--ink-mid);
+}
+
+.edit-entry-btn:disabled,
+.delete-entry-btn:disabled,
+.expand-toggle-btn:disabled {
+opacity: 0.4;
+cursor: not-allowed;
+background: transparent;
 }
 
 .entry-day {
@@ -185,10 +206,6 @@ transition: transform 0.15s ease;
 .history-entry.open .entry-chevron {
 transform: rotate(180deg);
 color: var(--accent);
-}
-
-.entry-summary:hover .entry-chevron {
-color: var(--ink-mid);
 }
 
 /* ---------- workout entry (expanded detail) ---------- */
@@ -491,6 +508,8 @@ font-size: 14px;
 
 .entry-summary:focus-visible,
 .edit-entry-btn:focus-visible,
+.delete-entry-btn:focus-visible,
+.expand-toggle-btn:focus-visible,
 .cancel-edit-btn:focus-visible,
 .save-edit-btn:focus-visible,
 .workout-name-input:focus-visible,

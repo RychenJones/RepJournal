@@ -5,13 +5,17 @@
 // actually recorded. Streak-row numbers reuse the same stats helper
 // as the dashboard.
 //
-// Each entry also has an Edit button that swaps its expanded detail
-// for an inline form (workout name/date, exercise names, set values).
-// Editing only changes existing records — it doesn't add or remove
-// exercises/sets.
+// Each entry has an Edit button that swaps its expanded detail for an
+// inline form (workout name/date, exercise names, set values — no
+// add/remove of exercises or sets), and a Delete button that removes
+// the whole workout after a confirm prompt.
 
 import { requireAuth, getCurrentUser } from './modules/auth.js';
-import { getWorkoutsForUser, updateWorkoutWithDetails } from './modules/api/workouts.js';
+import {
+  getWorkoutsForUser,
+  updateWorkoutWithDetails,
+  deleteWorkoutWithDetails,
+} from './modules/api/workouts.js';
 import { renderHistoryPage as renderHistoryEntries } from './modules/render.js';
 import { computeDashboardStats } from './modules/stats.js';
 import {
@@ -64,6 +68,7 @@ const historyRenderConfig = {
   historyDetailExerciseTemplate,
   historyDetailSetTemplate,
   onEdit: enterEditMode,
+  onDelete: handleDeleteWorkout,
 };
 
 // ---------- edit form building ----------
@@ -185,7 +190,7 @@ function validateEditForm(form) {
 
 // ---------- edit mode lifecycle ----------
 
-function exitEditMode(historyEntryEl) {
+function exitEditMode() {
   renderHistoryEntries(currentWorkouts, historyRenderConfig);
 }
 
@@ -218,13 +223,22 @@ function enterEditMode(workout, historyEntryEl) {
   historyEntryEl.classList.add('open', 'editing');
   historyEntryEl.querySelector('.entry-summary').disabled = true;
 
+  const expandBtn = historyEntryEl.querySelector('.expand-toggle-btn');
+  if (expandBtn) expandBtn.disabled = true;
+
+  const deleteBtn = historyEntryEl.querySelector('.delete-entry-btn');
+  if (deleteBtn) deleteBtn.disabled = true;
+
+  const editBtn = historyEntryEl.querySelector('.edit-entry-btn');
+  if (editBtn) editBtn.disabled = true;
+
   const exercisesContainer = historyEntryEl.querySelector('.entry-exercises');
   exercisesContainer.innerHTML = '';
 
   const form = buildEditForm(workout);
 
   form.querySelector('.cancel-edit-btn').addEventListener('click', () => {
-    exitEditMode(historyEntryEl);
+    exitEditMode();
   });
 
   form.querySelector('.save-edit-btn').addEventListener('click', () => {
@@ -232,6 +246,35 @@ function enterEditMode(workout, historyEntryEl) {
   });
 
   exercisesContainer.appendChild(form);
+}
+
+// ---------- delete ----------
+
+async function handleDeleteWorkout(workout, historyEntryEl) {
+  const confirmed = window.confirm(`Delete "${workout.title}"? This can't be undone.`);
+  if (!confirmed) return;
+
+  const deleteBtn = historyEntryEl.querySelector('.delete-entry-btn');
+  const editBtn = historyEntryEl.querySelector('.edit-entry-btn');
+  const summaryBtn = historyEntryEl.querySelector('.entry-summary');
+  const expandBtn = historyEntryEl.querySelector('.expand-toggle-btn');
+
+  deleteBtn.disabled = true;
+  editBtn.disabled = true;
+  summaryBtn.disabled = true;
+  if (expandBtn) expandBtn.disabled = true;
+
+  try {
+    await deleteWorkoutWithDetails({ id: workout.id, exercises: workout.exercises });
+    await renderHistoryView();
+  } catch (error) {
+    console.error('Failed to delete workout:', error);
+    window.alert('Failed to delete workout. Please try again.');
+    deleteBtn.disabled = false;
+    editBtn.disabled = false;
+    summaryBtn.disabled = false;
+    if (expandBtn) expandBtn.disabled = false;
+  }
 }
 
 // ---------- initial load ----------

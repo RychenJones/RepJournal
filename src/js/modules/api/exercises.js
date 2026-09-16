@@ -7,3 +7,7 @@ export function createExercise({ workout, name }) {
 export function updateExercise({ id, name }) {
   return pb.collection('exercises').update(id, { name });
 }
+
+export function deleteExercise(id) {
+  return pb.collection('exercises').delete(id);
+}

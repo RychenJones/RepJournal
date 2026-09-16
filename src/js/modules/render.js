@@ -15,6 +15,7 @@ export function buildHistoryEntry(workout, historyTemplates) {
     historyDetailExerciseTemplate,
     historyDetailSetTemplate,
     onEdit,
+    onDelete,
   } = historyTemplates;
 
   const historyEntry = historyEntryTemplate.content.firstElementChild.cloneNode(true);
@@ -53,15 +54,28 @@ export function buildHistoryEntry(workout, historyTemplates) {
     historyExercisesContainer.appendChild(historyExercise);
   });
 
-  historyEntry.querySelector('.entry-summary').addEventListener('click', () => {
-    historyEntry.classList.toggle('open');
-  });
+  const toggleOpen = () => historyEntry.classList.toggle('open');
+
+  historyEntry.querySelector('.entry-summary').addEventListener('click', toggleOpen);
+
+  const expandBtn = historyEntry.querySelector('.expand-toggle-btn');
+  if (expandBtn) {
+    expandBtn.addEventListener('click', toggleOpen);
+  }
 
   const editBtn = historyEntry.querySelector('.edit-entry-btn');
   if (editBtn && onEdit) {
     editBtn.addEventListener('click', (event) => {
       event.stopPropagation();
       onEdit(workout, historyEntry);
+    });
+  }
+
+  const deleteBtn = historyEntry.querySelector('.delete-entry-btn');
+  if (deleteBtn && onDelete) {
+    deleteBtn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      onDelete(workout, historyEntry);
     });
   }
 
@@ -78,6 +92,7 @@ export function renderHistoryPage(historyEntries, historyRenderConfig) {
     historyDetailExerciseTemplate,
     historyDetailSetTemplate,
     onEdit,
+    onDelete,
   } = historyRenderConfig;
 
   historyGroupsContainer.innerHTML = '';
@@ -116,6 +131,7 @@ export function renderHistoryPage(historyEntries, historyRenderConfig) {
           historyDetailExerciseTemplate,
           historyDetailSetTemplate,
           onEdit,
+          onDelete,
         })
       );
     });

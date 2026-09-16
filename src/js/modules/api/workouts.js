@@ -1,6 +1,6 @@
 import pb from '../pocketbase.js';
-import { createExercise, updateExercise } from './exercises.js';
-import { createSet, updateSet } from './sets.js';
+import { createExercise, updateExercise, deleteExercise } from './exercises.js';
+import { createSet, updateSet, deleteSet } from './sets.js';
 
 export function createWorkout({ user, name, date }) {
   return pb.collection('workouts').create({ user, name, date });
@@ -54,12 +54,33 @@ export async function updateWorkoutWithDetails({ id, name, date, exercises }) {
   return workout;
 }
 
+export function deleteWorkout(id) {
+  return pb.collection('workouts').delete(id);
+}
+
+/**
+ * Deletes a workout along with all of its exercises and sets. The
+ * workout/exercise/sets relations all have cascadeDelete off, so this
+ * removes children explicitly (sets, then exercises, then the workout)
+ * rather than leaving orphaned rows behind.
+ */
+export async function deleteWorkoutWithDetails({ id, exercises }) {
+  for (const exercise of exercises) {
+    for (const set of exercise.sets) {
+      await deleteSet(set.id);
+    }
+    await deleteExercise(exercise.id);
+  }
+
+  await deleteWorkout(id);
+}
+
 /**
  * Fetch every workout for a user, with exercises and sets expanded via
  * PocketBase back-relations, newest first. Returned shape matches what
  * render.js expects: { id, date, title, exercises: [{ id, name, sets }] },
  * where each set is { id, weight, reps, rpe }. Ids are included so the
- * history page can edit existing records in place.
+ * history page can edit or delete existing records in place.
  */
 export async function getWorkoutsForUser(userId) {
   const workouts = await pb.collection('workouts').getFullList({
