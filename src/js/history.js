@@ -1,101 +1,16 @@
 // RepJournal — History page
-// Renders logged workouts grouped by month, each collapsible to show
-// its exercises and per-set weight/reps/RPE. RPE is optional, so it's
-// only shown on the sets where it was actually recorded.
-//
-// NOTE: WORKOUT_HISTORY below is placeholder sample data standing in
-// for whatever your real data source is (API call, local storage,
-// etc). Swap loadHistory() to fetch real data — everything else
-// (grouping, rendering, expand/collapse) works off the same shape.
+// Renders every logged workout for the current user, grouped by month,
+// each collapsible to show its exercises and per-set weight/reps/RPE.
+// RPE is optional, so it's only shown on the sets where it was
+// actually recorded. Streak-row numbers reuse the same stats helper
+// as the dashboard.
 
+import { requireAuth, getCurrentUser } from './modules/auth.js';
+import { getWorkoutsForUser } from './modules/api/workouts.js';
 import { renderHistoryPage as renderHistoryEntries } from './modules/render.js';
+import { computeDashboardStats } from './modules/stats.js';
 
-const WORKOUT_HISTORY = [
-  {
-    date: '2026-09-06',
-    title: 'Pull Day',
-    exercises: [
-      { name: 'Deadlift', sets: [
-        { weight: 225, reps: 5, rpe: 8 },
-        { weight: 225, reps: 5, rpe: 8.5 },
-        { weight: 225, reps: 5, rpe: 9 },
-      ] },
-      { name: 'Lat Pulldown', sets: [
-        { weight: 140, reps: 10 },
-        { weight: 140, reps: 10 },
-        { weight: 140, reps: 9 },
-      ] },
-      { name: 'Barbell Row', sets: [
-        { weight: 135, reps: 8, rpe: 7 },
-        { weight: 135, reps: 8, rpe: 7.5 },
-      ] },
-    ],
-  },
-  {
-    date: '2026-09-03',
-    title: 'Push Day',
-    exercises: [
-      { name: 'Bench Press', sets: [
-        { weight: 185, reps: 5, rpe: 8 },
-        { weight: 185, reps: 5, rpe: 8 },
-        { weight: 185, reps: 4, rpe: 9 },
-      ] },
-      { name: 'Overhead Press', sets: [
-        { weight: 95, reps: 8 },
-        { weight: 95, reps: 8 },
-      ] },
-    ],
-  },
-  {
-    date: '2026-09-01',
-    title: 'Leg Day',
-    exercises: [
-      { name: 'Back Squat', sets: [
-        { weight: 205, reps: 5, rpe: 8 },
-        { weight: 205, reps: 5, rpe: 8.5 },
-        { weight: 205, reps: 5, rpe: 9 },
-      ] },
-      { name: 'Romanian Deadlift', sets: [
-        { weight: 155, reps: 8 },
-        { weight: 155, reps: 8 },
-      ] },
-      { name: 'Leg Press', sets: [
-        { weight: 360, reps: 10 },
-        { weight: 360, reps: 10 },
-        { weight: 360, reps: 10 },
-      ] },
-    ],
-  },
-  {
-    date: '2026-08-30',
-    title: 'Upper Body',
-    exercises: [
-      { name: 'Incline Dumbbell Press', sets: [
-        { weight: 65, reps: 8, rpe: 7 },
-        { weight: 65, reps: 8, rpe: 7.5 },
-      ] },
-      { name: 'Seated Cable Row', sets: [
-        { weight: 120, reps: 10 },
-        { weight: 120, reps: 10 },
-      ] },
-    ],
-  },
-  {
-    date: '2026-08-14',
-    title: 'Pull Day',
-    exercises: [
-      { name: 'Deadlift', sets: [
-        { weight: 215, reps: 5, rpe: 8 },
-        { weight: 215, reps: 5, rpe: 8 },
-      ] },
-      { name: 'Pull-Up', sets: [
-        { weight: 0, reps: 8 },
-        { weight: 0, reps: 7 },
-        { weight: 0, reps: 6 },
-      ] },
-    ],
-  },
-];
+requireAuth();
 
 const historyGroupsContainer = document.getElementById('history-groups');
 const historyEmptyState = document.getElementById('empty-state');
@@ -106,23 +21,33 @@ const historyEntryTemplate = document.getElementById('history-entry-template');
 const historyDetailExerciseTemplate = document.getElementById('detail-exercise-template');
 const historyDetailSetTemplate = document.getElementById('detail-set-template');
 
-/** Placeholder for wherever this app actually gets its data from. */
-function loadHistory() {
-  return [...WORKOUT_HISTORY].sort((a, b) => new Date(b.date) - new Date(a.date));
-}
+const thisWeekEl = document.getElementById('stat-this-week');
+const perMonthEl = document.getElementById('stat-per-month');
+const totalEl = document.getElementById('stat-total');
 
-function renderHistoryView() {
-  const historyEntries = loadHistory();
+async function renderHistoryView() {
+  const user = getCurrentUser();
 
-  renderHistoryEntries(historyEntries, {
-    historyGroupsContainer,
-    historyEmptyState,
-    historySummaryEl,
-    historyMonthGroupTemplate,
-    historyEntryTemplate,
-    historyDetailExerciseTemplate,
-    historyDetailSetTemplate,
-  });
+  try {
+    const historyEntries = await getWorkoutsForUser(user.id);
+
+    const stats = computeDashboardStats(historyEntries);
+    thisWeekEl.textContent = stats.thisWeek;
+    perMonthEl.textContent = stats.perMonth;
+    totalEl.textContent = stats.total;
+
+    renderHistoryEntries(historyEntries, {
+      historyGroupsContainer,
+      historyEmptyState,
+      historySummaryEl,
+      historyMonthGroupTemplate,
+      historyEntryTemplate,
+      historyDetailExerciseTemplate,
+      historyDetailSetTemplate,
+    });
+  } catch (error) {
+    console.error('Failed to load history:', error);
+  }
 }
 
 renderHistoryView();

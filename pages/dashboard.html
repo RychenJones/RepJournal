@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/src/styles/dashboard.css" />
 
     <script type="module" src="/src/main.js"></script>
+    <script type="module" src="/src/js/dashboard.js" defer></script>
   </head>
   <body>
     <!-- ============ DESKTOP TOP NAV (shown ≥800px) ============ -->
@@ -83,21 +84,21 @@
     <!-- ============ MAIN CONTENT (shared by mobile + desktop) ============ -->
     <main class="main">
       <div class="main-header">
-        <h1 class="greeting">Tuesday's session</h1>
-        <p class="greeting-sub">Last workout: Saturday · Pull Day</p>
+        <h1 class="greeting" id="greeting">Today's session</h1>
+        <p class="greeting-sub" id="greeting-sub">Loading…</p>
       </div>
 
       <div class="streak-row">
         <div class="streak-chip">
-          <div class="num">3</div>
+          <div class="num" id="stat-this-week">0</div>
           <div class="lbl">this week</div>
         </div>
         <div class="streak-chip">
-          <div class="num">9</div>
+          <div class="num" id="stat-per-month">0</div>
           <div class="lbl">per month</div>
         </div>
         <div class="streak-chip">
-          <div class="num">62</div>
+          <div class="num" id="stat-total">0</div>
           <div class="lbl">total logged</div>
         </div>
       </div>
@@ -111,42 +112,27 @@
         <h2 class="section-title">Recent workouts</h2>
         <div class="chalk-underline"></div>
 
-        <ul class="entry-list">
-          <li class="entry">
-            <span class="entry-day">Sat</span>
-            <span class="check">✓</span>
-            <span class="entry-body">
-              <span class="entry-title">Pull Day</span>
-              <span class="entry-meta">5 exercises · 18 sets</span>
-            </span>
-          </li>
-          <li class="entry">
-            <span class="entry-day">Thu</span>
-            <span class="check">✓</span>
-            <span class="entry-body">
-              <span class="entry-title">Push Day</span>
-              <span class="entry-meta">4 exercises · 15 sets</span>
-            </span>
-          </li>
-          <li class="entry">
-            <span class="entry-day">Tue</span>
-            <span class="check">✓</span>
-            <span class="entry-body">
-              <span class="entry-title">Leg Day</span>
-              <span class="entry-meta">6 exercises · 20 sets</span>
-            </span>
-          </li>
-          <li class="entry">
-            <span class="entry-day">Sun</span>
-            <span class="check">✓</span>
-            <span class="entry-body">
-              <span class="entry-title">Upper Body</span>
-              <span class="entry-meta">5 exercises · 16 sets</span>
-            </span>
-          </li>
+        <ul class="entry-list" id="entry-list">
+          <!-- workout entries injected by dashboard.js -->
         </ul>
+
+        <p id="empty-state" class="empty-state" hidden>
+          No workouts logged yet — head to Log workout to start your streak.
+        </p>
       </section>
     </main>
+
+    <!-- ============ TEMPLATE (cloned by dashboard.js) ============ -->
+    <template id="entry-template">
+      <li class="entry">
+        <span class="entry-day"></span>
+        <span class="check">✓</span>
+        <span class="entry-body">
+          <span class="entry-title"></span>
+          <span class="entry-meta"></span>
+        </span>
+      </li>
+    </template>
 
     <!-- ============ MOBILE BOTTOM NAV (shown <800px) ============ -->
     <nav class="bottom-nav">
