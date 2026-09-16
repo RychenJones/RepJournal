@@ -1,6 +1,6 @@
 import pb from '../pocketbase.js';
-import { createExercise } from './exercises.js';
-import { createSet } from './sets.js';
+import { createExercise, updateExercise } from './exercises.js';
+import { createSet, updateSet } from './sets.js';
 
 export function createWorkout({ user, name, date }) {
   return pb.collection('workouts').create({ user, name, date });
@@ -25,10 +25,41 @@ export async function saveWorkoutWithDetails({ user, name, date, exercises }) {
   return workout;
 }
 
+export function updateWorkout({ id, name, date }) {
+  return pb.collection('workouts').update(id, { name, date });
+}
+
+/**
+ * Updates an existing workout plus all of its already-created exercises
+ * and sets. `exercises` must be the full list, each with the id of the
+ * existing exercise/set record to update (this does not add or remove
+ * exercises/sets — only edits values on records that already exist).
+ */
+export async function updateWorkoutWithDetails({ id, name, date, exercises }) {
+  const workout = await updateWorkout({ id, name, date });
+
+  for (const exercise of exercises) {
+    await updateExercise({ id: exercise.id, name: exercise.name });
+
+    for (const set of exercise.sets) {
+      await updateSet({
+        id: set.id,
+        weight: set.weight,
+        reps: set.reps,
+        rpe: set.rpe,
+      });
+    }
+  }
+
+  return workout;
+}
+
 /**
  * Fetch every workout for a user, with exercises and sets expanded via
  * PocketBase back-relations, newest first. Returned shape matches what
- * render.js expects: { id, date, title, exercises: [{ name, sets }] }.
+ * render.js expects: { id, date, title, exercises: [{ id, name, sets }] },
+ * where each set is { id, weight, reps, rpe }. Ids are included so the
+ * history page can edit existing records in place.
  */
 export async function getWorkoutsForUser(userId) {
   const workouts = await pb.collection('workouts').getFullList({
@@ -48,12 +79,13 @@ export async function getWorkoutsForUser(userId) {
         const sets = [...rawSets]
           .sort((a, b) => new Date(a.created) - new Date(b.created))
           .map((set) => ({
+            id: set.id,
             weight: set.weight,
             reps: set.reps,
             rpe: set.rpe,
           }));
 
-        return { name: exercise.name, sets };
+        return { id: exercise.id, name: exercise.name, sets };
       });
 
     return {

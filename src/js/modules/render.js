@@ -14,6 +14,7 @@ export function buildHistoryEntry(workout, historyTemplates) {
     historyEntryTemplate,
     historyDetailExerciseTemplate,
     historyDetailSetTemplate,
+    onEdit,
   } = historyTemplates;
 
   const historyEntry = historyEntryTemplate.content.firstElementChild.cloneNode(true);
@@ -56,6 +57,14 @@ export function buildHistoryEntry(workout, historyTemplates) {
     historyEntry.classList.toggle('open');
   });
 
+  const editBtn = historyEntry.querySelector('.edit-entry-btn');
+  if (editBtn && onEdit) {
+    editBtn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      onEdit(workout, historyEntry);
+    });
+  }
+
   return historyEntry;
 }
 
@@ -68,6 +77,7 @@ export function renderHistoryPage(historyEntries, historyRenderConfig) {
     historyEntryTemplate,
     historyDetailExerciseTemplate,
     historyDetailSetTemplate,
+    onEdit,
   } = historyRenderConfig;
 
   historyGroupsContainer.innerHTML = '';
@@ -105,6 +115,7 @@ export function renderHistoryPage(historyEntries, historyRenderConfig) {
           historyEntryTemplate,
           historyDetailExerciseTemplate,
           historyDetailSetTemplate,
+          onEdit,
         })
       );
     });
