@@ -123,7 +123,7 @@
           <input type="file" id="photo-input" accept="image/*" hidden />
         </div>
         <div class="photo-copy">
-          <p class="photo-name" id="photo-display-name">Alex</p>
+          <p class="photo-name" id="photo-display-name"></p>
           <button type="button" id="photo-remove-btn" class="photo-remove-btn">
             Remove photo
           </button>
@@ -142,11 +142,11 @@
               type="text"
               name="first-name"
               id="first-name-input"
-              value="Alex"
               autocomplete="given-name"
               required
             />
           </label>
+          <p class="field-error" id="first-name-error"></p>
 
           <label class="field">
             <span class="field-label">Username</span>
@@ -155,13 +155,13 @@
               type="text"
               name="username"
               id="username-input"
-              value="alexlifts"
               autocomplete="username"
               required
             />
           </label>
+          <p class="field-error" id="username-error"></p>
 
-          <button type="submit" class="save-btn">Save changes</button>
+          <button type="submit" class="save-btn" id="account-save-btn">Save changes</button>
         </form>
       </section>
 
@@ -176,11 +176,13 @@
               class="field-input"
               type="password"
               name="current-password"
+              id="current-password-input"
               placeholder="••••••••"
               autocomplete="current-password"
               required
             />
           </label>
+          <p class="field-error" id="current-password-error"></p>
 
           <label class="field">
             <span class="field-label">New password</span>
@@ -188,11 +190,13 @@
               class="field-input"
               type="password"
               name="new-password"
+              id="new-password-input"
               placeholder="••••••••"
               autocomplete="new-password"
               required
             />
           </label>
+          <p class="field-error" id="new-password-error"></p>
 
           <label class="field">
             <span class="field-label">Confirm new password</span>
@@ -200,20 +204,19 @@
               class="field-input"
               type="password"
               name="confirm-password"
+              id="confirm-password-input"
               placeholder="••••••••"
               autocomplete="new-password"
               required
             />
           </label>
-          <p class="field-error" id="password-error" hidden>
-            New passwords don't match.
-          </p>
+          <p class="field-error" id="confirm-password-error"></p>
 
-          <button type="submit" class="save-btn">Update password</button>
+          <button type="submit" class="save-btn" id="password-save-btn">Update password</button>
         </form>
       </section>
 
-      <button type="button" class="logout-btn">Log out</button>
+      <button type="button" class="logout-btn" id="logout-btn">Log out</button>
     </main>
 
     <!-- ============ MOBILE BOTTOM NAV (shown <800px) ============ -->

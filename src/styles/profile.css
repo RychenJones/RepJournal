@@ -191,6 +191,15 @@ border-bottom: 1px solid var(--accent);
 margin-top: -10px;
 font-size: 12.5px;
 color: #D97757;
+display: none;
+}
+
+.field-error:not(:empty) {
+display: block;
+}
+
+.field-input.is-invalid {
+border-bottom-color: #D97757;
 }
 
 /* ---------- buttons ---------- */
