@@ -6,22 +6,27 @@ I enjoy strength training, so I built RepJournal as a full-stack application for
 
 The application is designed with mobile users in mind while providing an expanded layout for desktop users.
 
-The UI is designed to have a chalkboard-inspired aesthetic and displays basic analytical data in addition to its workout logging functionality.
+The UI is designed to have a chalkboard-inspired aesthetic and displays basic historical data in addition to its workout logging functionality.
+
+## Instructions for use
+
+1. Go to https://repjournaltracker.netlify.app
+2. Use [**Username:** *Demo*, **Password:** *Password*] or create a new account
+3. Explore the application and test its features
 
 ## Tech Stack
 
 **Frontend:** HTML, CSS, JavaScript, Vite
 
-**Backend:** PocketBase, SQLite
+**Backend:** PocketBase
 
-**Deployment:** Netlify, Google Cloud
+**Deployment:** Google Cloud, Netlify
 
 **Tools:** Git, GitHub
 
 ## Future Plans
 
-* Add user authentication
-* Add workout history and progress tracking
 * Expand analytical features
 * Improve mobile and desktop UI
-* Deploy the PocketBase backend to Google Cloud
+* Re-write the backend to migrate off PocketBase
+* Improve Google Cloud security
