@@ -6,7 +6,7 @@ export function createWorkout({ user, name, date }) {
   return pb.collection('workouts').create({ user, name, date });
 }
 
-export async function saveWorkoutWithDetails({ user, name, date, exercises }) {
+export async function createWorkoutWithDetails({ user, name, date, exercises }) {
   const workout = await createWorkout({ user, name, date });
 
   for (const exercise of exercises) {

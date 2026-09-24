@@ -3,7 +3,7 @@
 // via api/workouts.js on "Finish workout".
 
 import { requireAuth, getCurrentUser } from './modules/auth.js';
-import { saveWorkoutWithDetails } from './modules/api/workouts.js';
+import { createWorkoutWithDetails } from './modules/api/workouts.js';
 import { toDateInputValue } from './modules/format.js';
 import {
   validateRequired,
@@ -235,7 +235,7 @@ finishBtn.addEventListener('click', async () => {
   setSaving(true);
 
   try {
-    await saveWorkoutWithDetails(result.data);
+    await createWorkoutWithDetails(result.data);
     window.location.href = '/pages/dashboard.html';
   } catch (error) {
     console.error('Failed to save workout:', error);
