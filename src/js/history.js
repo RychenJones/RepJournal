@@ -16,7 +16,7 @@ import {
   updateWorkoutWithDetails,
   deleteWorkoutWithDetails,
 } from './modules/api/workouts.js';
-import { renderHistoryPage as renderHistoryEntries } from './modules/render.js';
+import { renderHistoryPage } from './modules/render.js';
 import { computeDashboardStats } from './modules/stats.js';
 import {
   validateRequired,
@@ -191,7 +191,7 @@ function validateEditForm(form) {
 // ---------- edit mode lifecycle ----------
 
 function exitEditMode() {
-  renderHistoryEntries(currentWorkouts, historyRenderConfig);
+  renderHistoryPage(currentWorkouts, historyRenderConfig);
 }
 
 async function saveEdit(workout, form) {
@@ -290,7 +290,7 @@ async function renderHistoryView() {
     perMonthEl.textContent = stats.perMonth;
     totalEl.textContent = stats.total;
 
-    renderHistoryEntries(currentWorkouts, historyRenderConfig);
+    renderHistoryPage(currentWorkouts, historyRenderConfig);
   } catch (error) {
     console.error('Failed to load history:', error);
   }

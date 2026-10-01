@@ -1,8 +1,3 @@
-// RepJournal — Dashboard stats
-// Computes the "this week / per month / total" numbers shown on the
-// dashboard from a list of workouts (shape: { date, ... }).
-// Weeks start on Monday; months are calendar months.
-
 function startOfWeek(date) {
   const result = new Date(date);
   const day = result.getDay(); // 0 (Sun) - 6 (Sat)
