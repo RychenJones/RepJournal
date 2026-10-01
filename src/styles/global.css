@@ -35,9 +35,6 @@ html, body {
 
 body {
   background: var(--bg);
-  background-image:
-    repeating-linear-gradient(0deg, var(--grid) 0px, var(--grid) 1px, transparent 1px, transparent 3px),
-    repeating-linear-gradient(90deg, var(--grid) 0px, var(--grid) 1px, transparent 1px, transparent 3px);
   color: var(--ink);
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
