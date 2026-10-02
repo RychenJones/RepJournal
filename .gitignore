@@ -1,0 +1,7 @@
+# PocketBase runtime state and executable
+pocketbase/pb_data/
+pocketbase/pb_data.zip
+pocketbase/pocketbase
+
+# Local OS/editor files
+.DS_Store
