@@ -8,8 +8,12 @@
 // wires the DOM to those modules.
 
 import { requireAuth, getCurrentUser, login, logout } from './modules/auth.js';
-import { isUsernameTaken, updateUserDetails, updateUserPassword } from './modules/api/users.js';
-import pb from './modules/pocketbase.js';
+import {
+  isUsernameTaken,
+  updateUserDetails,
+  updateUserPassword,
+  getUserAvatarUrl,
+} from './modules/api/users.js';
 import {
   validateLength,
   validateRequired,
@@ -128,7 +132,7 @@ function initFromUser() {
   updateFallbackInitial();
 
   if (user.avatar) {
-    showPhoto(pb.files.getURL(user, user.avatar));
+    showPhoto(getUserAvatarUrl(user, user.avatar));
   } else {
     clearPhoto();
   }

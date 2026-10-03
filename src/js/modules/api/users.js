@@ -40,3 +40,7 @@ export function updateUserDetails(userId, { name, username }) {
 export function updateUserPassword(userId, { oldPassword, password, passwordConfirm }) {
   return pb.collection('users').update(userId, { oldPassword, password, passwordConfirm });
 }
+
+export function getUserAvatarUrl(user, avatar) {
+  return pb.files.getURL(user, avatar);
+}
