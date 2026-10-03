@@ -1,22 +1,27 @@
+// Converts a Date into the YYYY-MM-DD string used by HTML date inputs.
 export function toDateInputValue(date = new Date()) {
   const offsetMs = date.getTimezoneOffset() * 60000;
   const localDate = new Date(date.getTime() - offsetMs);
   return localDate.toISOString().slice(0, 10);
 }
 
+// Returns the three-letter weekday name for a date string.
 export function formatDayAbbrev(dateStr) {
   return new Date(`${dateStr}T00:00:00`).toLocaleDateString(undefined, { weekday: 'short' });
 }
 
+// Returns the full weekday name for a date object or date string.
 export function formatWeekdayLong(date) {
   const parsedDate = typeof date === 'string' ? new Date(`${date}T00:00:00`) : date;
   return parsedDate.toLocaleDateString(undefined, { weekday: 'long' });
 }
 
+// Returns the month and year label for a date string.
 export function formatMonthLabel(dateStr) {
   return new Date(`${dateStr}T00:00:00`).toLocaleDateString(undefined, { month: 'long', year: 'numeric' });
 }
 
+// Formats a set into a readable base description and optional RPE text.
 export function formatSetLine(set) {
   const weightPart = set.weight === 0 ? 'Bodyweight' : `${set.weight} lb`;
   const base = `${weightPart} × ${set.reps}`;
