@@ -1,6 +1,4 @@
-// RepJournal — Dashboard (Home) page
-// Pulls the current user's workouts from PocketBase and renders the
-// greeting, streak stats, and recent-workouts list from real data.
+// Load the current user's dashboard data and render the page.
 
 import { requireAuth, getCurrentUser } from './modules/auth.js';
 import { getWorkoutsForUser } from './modules/api/workouts.js';
@@ -18,7 +16,7 @@ const entryListEl = document.getElementById('entry-list');
 const emptyStateEl = document.getElementById('empty-state');
 const entryTemplate = document.getElementById('entry-template');
 
-// Doesn't depend on fetched data, so set it immediately.
+// The greeting does not depend on the workout request.
 greetingEl.textContent = `${formatWeekdayLong(new Date())}'s session`;
 
 async function loadDashboard() {

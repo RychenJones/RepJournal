@@ -1,9 +1,3 @@
-/* ==========================================================
-   RepJournal — Login
-   Uses tokens + resets from global.css. Chalkboard theme,
-   orange accent. Single centered card, no top/bottom nav.
-   ========================================================== */
-
 .login-body {
 min-height: 100%;
 }
@@ -25,8 +19,6 @@ border-radius: 10px;
 background: var(--panel);
 }
 
-/* ---------- wordmark ---------- */
-
 .login-mark {
 margin-bottom: 14px;
 }
@@ -41,8 +33,6 @@ color: var(--ink-dim);
 font-size: 14px;
 margin-bottom: 28px;
 }
-
-/* ---------- form ---------- */
 
 .login-form {
 display: flex;
@@ -143,8 +133,6 @@ outline: 2px solid var(--accent-2);
 outline-offset: 2px;
 }
 
-/* ---------- footer line ---------- */
-
 .signup-line {
 margin-top: 24px;
 text-align: center;
@@ -160,8 +148,6 @@ text-underline-offset: 3px;
 }
 
 
-/* ---------- validation ---------- */
-
 .field-error {
   font-size: 12px;
   color: var(--error, #e5484d);
@@ -176,8 +162,6 @@ text-underline-offset: 3px;
 .field-input.is-invalid {
   border-bottom-color: var(--error, #e5484d);
 }
-
-/* ---------- reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
 .login-btn,

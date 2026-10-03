@@ -1,13 +1,3 @@
-/* ==========================================================
-   RepJournal — History
-   Uses tokens + resets from global.css. Chalkboard theme,
-   orange accent. Page-specific: stat chips, month groups,
-   expandable workout entries with per-set detail, and the
-   inline edit form each entry can switch into.
-   ========================================================== */
-
-/* ---------- page layout ---------- */
-
 .main {
 max-width: 640px;
 margin: 0 auto;
@@ -31,8 +21,6 @@ margin-top: 6px;
 font-size: 14px;
 color: var(--ink-dim);
 }
-
-/* ---------- stat chips (mirrors dashboard's streak row) ---------- */
 
 .streak-row {
 display: flex;
@@ -63,8 +51,6 @@ font-size: 11.5px;
 color: var(--ink-dim);
 }
 
-/* ---------- month groups ---------- */
-
 .history-groups {
 display: flex;
 flex-direction: column;
@@ -90,8 +76,6 @@ display: flex;
 flex-direction: column;
 gap: 10px;
 }
-
-/* ---------- workout entry (collapsed summary row) ---------- */
 
 .history-entry {
 border: 1px dashed var(--ink-faint-2);
@@ -208,8 +192,6 @@ transform: rotate(180deg);
 color: var(--accent);
 }
 
-/* ---------- workout entry (expanded detail) ---------- */
-
 .entry-detail {
 display: grid;
 grid-template-rows: 0fr;
@@ -272,8 +254,6 @@ color: var(--ink);
 .detail-set-line .rpe-tag {
 color: var(--accent-2);
 }
-
-/* ---------- inline edit form ---------- */
 
 .entry-edit {
 padding: 14px 16px 16px;
@@ -493,8 +473,6 @@ color: var(--bg);
 opacity: 0.92;
 }
 
-/* ---------- empty state ---------- */
-
 .empty-state {
 border: 1px dashed var(--ink-faint-2);
 border-radius: 10px;
@@ -503,8 +481,6 @@ text-align: center;
 color: var(--ink-dim);
 font-size: 14px;
 }
-
-/* ---------- focus-visible ---------- */
 
 .entry-summary:focus-visible,
 .edit-entry-btn:focus-visible,

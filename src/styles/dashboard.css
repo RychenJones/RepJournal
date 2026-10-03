@@ -1,10 +1,3 @@
-/* ==========================================================
-   RepJournal — Dashboard (Home)
-   Page-specific styles: greeting, streak chips, CTA, entry list.
-   Depends on variables defined in global.css — load global.css first.
-   Mobile-first. Desktop layout takes over at 800px and up.
-   ========================================================== */
-
 .main {
   padding: 56px 22px 120px;
   max-width: 720px;
@@ -152,8 +145,6 @@
   margin-top: 2px;
 }
 
-/* ---------- empty state ---------- */
-
 .empty-state {
   border: 1px dashed var(--ink-faint-2);
   border-radius: 10px;
@@ -163,13 +154,8 @@
   font-size: 14px;
 }
 
-/* ==========================================================
-   BREAKPOINT — desktop layout takes over at 800px
-   ========================================================== */
-
 @media (min-width: 800px) {
 
-  /* main content gets more room to breathe and no bottom-nav padding */
   .main {
     padding: 56px 24px 60px;
     max-width: 760px;

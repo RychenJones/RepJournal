@@ -6,6 +6,7 @@ export function createWorkout({ user, name, date }) {
   return pb.collection('workouts').create({ user, name, date });
 }
 
+// Create the workout tree in parent-to-child order so each relation has an id.
 export async function createWorkoutWithDetails({ user, name, date, exercises }) {
   const workout = await createWorkout({ user, name, date });
 
@@ -29,12 +30,7 @@ export function updateWorkout({ id, name, date }) {
   return pb.collection('workouts').update(id, { name, date });
 }
 
-/**
- * Updates an existing workout plus all of its already-created exercises
- * and sets. `exercises` must be the full list, each with the id of the
- * existing exercise/set record to update (this does not add or remove
- * exercises/sets — only edits values on records that already exist).
- */
+// Updates existing records only; the edit form cannot add or remove rows.
 export async function updateWorkoutWithDetails({ id, name, date, exercises }) {
   const workout = await updateWorkout({ id, name, date });
 
@@ -58,12 +54,7 @@ export function deleteWorkout(id) {
   return pb.collection('workouts').delete(id);
 }
 
-/**
- * Deletes a workout along with all of its exercises and sets. The
- * workout/exercise/sets relations all have cascadeDelete off, so this
- * removes children explicitly (sets, then exercises, then the workout)
- * rather than leaving orphaned rows behind.
- */
+// Delete children first because the relations do not cascade.
 export async function deleteWorkoutWithDetails({ id, exercises }) {
   for (const exercise of exercises) {
     for (const set of exercise.sets) {
@@ -75,13 +66,7 @@ export async function deleteWorkoutWithDetails({ id, exercises }) {
   await deleteWorkout(id);
 }
 
-/**
- * Fetch every workout for a user, with exercises and sets expanded via
- * PocketBase back-relations, newest first. Returned shape matches what
- * render.js expects: { id, date, title, exercises: [{ id, name, sets }] },
- * where each set is { id, weight, reps, rpe }. Ids are included so the
- * history page can edit or delete existing records in place.
- */
+// Return the nested shape used by the dashboard and history pages.
 export async function getWorkoutsForUser(userId) {
   const workouts = await pb.collection('workouts').getFullList({
     filter: pb.filter('user = {:user}', { user: userId }),
@@ -111,8 +96,7 @@ export async function getWorkoutsForUser(userId) {
 
     return {
       id: workout.id,
-      // PocketBase date fields come back as "2026-09-06 00:00:00.000Z";
-      // slice to the YYYY-MM-DD format format.js's helpers expect.
+      // Keep only the date portion for local date formatting.
       date: workout.date.slice(0, 10),
       title: workout.name,
       exercises,
