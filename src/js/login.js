@@ -1,11 +1,9 @@
-// RepJournal — Log in page
-// Client-side validation (required fields only — login shouldn't
-// re-enforce signup-time length rules) + PocketBase authentication.
+// Validate the login form and authenticate with PocketBase.
 
 import { login, redirectIfAuthenticated } from './modules/auth.js';
 import { validateRequired, showError, validateField, validateForm } from './modules/validation.js';
 
-// If there's already a valid session, skip the login form entirely.
+// An existing session can go straight to the dashboard.
 redirectIfAuthenticated();
 
 const form = document.querySelector('.login-form');
@@ -31,8 +29,7 @@ function setSubmitting(isSubmitting) {
 
 function handlePocketbaseError(error) {
   console.error('Login failed:', error);
-  // PocketBase returns a generic 400 for bad credentials — don't reveal
-  // which field was wrong, just surface it under password.
+  // Keep credential errors generic.
   showError(fields.password.input, fields.password.error, 'Incorrect username or password.');
 }
 

@@ -1,8 +1,4 @@
-// RepJournal — Create account page
-// Client-side form validation + PocketBase account creation.
-// Rules live in constants.js; validation logic lives in validation.js;
-// PocketBase calls live in auth.js and api/users.js. This file only
-// wires the DOM to those modules.
+// Create account form and signup flow.
 
 import { login } from './modules/auth.js';
 import { isUsernameTaken, createUser } from './modules/api/users.js';

@@ -1,11 +1,4 @@
-// RepJournal — Profile page
-// Handles: photo preview (local only — not yet persisted to PocketBase),
-// loading the signed-in user's real name/username on page load, saving
-// account detail changes, changing password, and logging out.
-//
-// Rules live in constants.js; validation logic lives in validation.js;
-// PocketBase calls live in auth.js and api/users.js. This file only
-// wires the DOM to those modules.
+// Profile form, local photo preview, password changes, and logout.
 
 import { requireAuth, getCurrentUser, login, logout } from './modules/auth.js';
 import {
@@ -36,7 +29,6 @@ requireAuth();
 
 const user = getCurrentUser();
 
-// --- DOM refs ---
 const photoInput = document.getElementById('photo-input');
 const photoEditBtn = document.getElementById('photo-edit-btn');
 const photoRemoveBtn = document.getElementById('photo-remove-btn');
@@ -82,9 +74,7 @@ const passwordFields = {
   },
 };
 
-// --- photo preview (local only) ---
-
-/** Initials fallback (e.g. "Alex" -> "A") shown until a photo is set. */
+// Show the first initial when no photo is selected.
 function updateFallbackInitial() {
   const name = accountFields['first-name'].input.value.trim();
   photoFallback.textContent = name ? name[0].toUpperCase() : '?';
@@ -123,8 +113,6 @@ accountFields['first-name'].input.addEventListener('input', () => {
   updateFallbackInitial();
 });
 
-// --- init from the signed-in user ---
-
 function initFromUser() {
   accountFields['first-name'].input.value = user.name || '';
   accountFields.username.input.value = user.username || '';
@@ -137,8 +125,6 @@ function initFromUser() {
     clearPhoto();
   }
 }
-
-// --- clear a field's error as soon as it's edited again ---
 
 accountForm.addEventListener('input', (event) => {
   const field = accountFields[event.target.name];
@@ -153,8 +139,6 @@ passwordForm.addEventListener('input', (event) => {
     clearError(field.input, field.error);
   }
 });
-
-// --- account details (name + username) ---
 
 function setAccountSubmitting(isSubmitting) {
   accountSaveBtn.disabled = isSubmitting;
@@ -216,8 +200,6 @@ accountForm.addEventListener('submit', async (event) => {
   }
 });
 
-// --- password ---
-
 function setPasswordSubmitting(isSubmitting) {
   passwordSaveBtn.disabled = isSubmitting;
   passwordSaveBtn.textContent = isSubmitting ? 'Updating…' : 'Update password';
@@ -271,8 +253,7 @@ passwordForm.addEventListener('submit', async (event) => {
   try {
     await updateUserPassword(user.id, { oldPassword, password, passwordConfirm });
 
-    // Changing the password invalidates the current auth token server-side,
-    // so log back in immediately with the new password to stay signed in.
+    // Password changes invalidate the current token, so refresh the session.
     await login(user.username, password);
 
     passwordForm.reset();
@@ -283,12 +264,9 @@ passwordForm.addEventListener('submit', async (event) => {
   }
 });
 
-// --- logout ---
-
 logoutBtn.addEventListener('click', () => {
   logout();
   window.location.href = '/index.html';
 });
 
-// --- init ---
 initFromUser();

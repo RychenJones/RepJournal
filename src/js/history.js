@@ -1,14 +1,4 @@
-// RepJournal — History page
-// Renders every logged workout for the current user, grouped by month,
-// each collapsible to show its exercises and per-set weight/reps/RPE.
-// RPE is optional, so it's only shown on the sets where it was
-// actually recorded. Streak-row numbers reuse the same stats helper
-// as the dashboard.
-//
-// Each entry has an Edit button that swaps its expanded detail for an
-// inline form (workout name/date, exercise names, set values — no
-// add/remove of exercises or sets), and a Delete button that removes
-// the whole workout after a confirm prompt.
+// Render workout history and handle inline edits and deletion.
 
 import { requireAuth, getCurrentUser } from './modules/auth.js';
 import {
@@ -55,8 +45,7 @@ const thisWeekEl = document.getElementById('stat-this-week');
 const perMonthEl = document.getElementById('stat-per-month');
 const totalEl = document.getElementById('stat-total');
 
-// Workouts currently on screen, kept around so Cancel can redraw the
-// read-only view instantly without a refetch.
+// Keep the loaded data so Cancel can restore the read-only view.
 let currentWorkouts = [];
 
 const historyRenderConfig = {
@@ -70,8 +59,6 @@ const historyRenderConfig = {
   onEdit: enterEditMode,
   onDelete: handleDeleteWorkout,
 };
-
-// ---------- edit form building ----------
 
 function buildEditSetRow(set, setIndex) {
   const row = editSetRowTemplate.content.firstElementChild.cloneNode(true);
@@ -188,8 +175,6 @@ function validateEditForm(form) {
   return true;
 }
 
-// ---------- edit mode lifecycle ----------
-
 function exitEditMode() {
   renderHistoryPage(currentWorkouts, historyRenderConfig);
 }
@@ -248,8 +233,6 @@ function enterEditMode(workout, historyEntryEl) {
   exercisesContainer.appendChild(form);
 }
 
-// ---------- delete ----------
-
 async function handleDeleteWorkout(workout, historyEntryEl) {
   const confirmed = window.confirm(`Delete "${workout.title}"? This can't be undone.`);
   if (!confirmed) return;
@@ -276,8 +259,6 @@ async function handleDeleteWorkout(workout, historyEntryEl) {
     if (expandBtn) expandBtn.disabled = false;
   }
 }
-
-// ---------- initial load ----------
 
 async function renderHistoryView() {
   const user = getCurrentUser();

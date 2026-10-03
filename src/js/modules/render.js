@@ -5,10 +5,6 @@ function countSets(workout) {
   return workout.exercises.reduce((totalSets, exercise) => totalSets + exercise.sets.length, 0);
 }
 
-// ---------------------------------------------------------------------------
-// History page
-// ---------------------------------------------------------------------------
-
 export function buildHistoryEntry(workout, historyTemplates) {
   const {
     historyEntryTemplate,
@@ -82,6 +78,7 @@ export function buildHistoryEntry(workout, historyTemplates) {
   return historyEntry;
 }
 
+// Build the month groups and entries from the normalized workout data.
 export function renderHistoryPage(historyEntries, historyRenderConfig) {
   const {
     historyGroupsContainer,
@@ -140,10 +137,7 @@ export function renderHistoryPage(historyEntries, historyRenderConfig) {
   });
 }
 
-// ---------------------------------------------------------------------------
-// Dashboard page
-// ---------------------------------------------------------------------------
-
+// Fill the dashboard template with summary data for one workout.
 export function buildDashboardEntry(workout, entryTemplate) {
   const entry = entryTemplate.content.firstElementChild.cloneNode(true);
 

@@ -1,3 +1,4 @@
+// Dashboard week totals run Monday through Sunday.
 function startOfWeek(date) {
   const result = new Date(date);
   const day = result.getDay(); // 0 (Sun) - 6 (Sat)

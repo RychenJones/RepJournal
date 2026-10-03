@@ -1,10 +1,3 @@
-/* ==========================================================
-   RepJournal — Global
-   Chalkboard theme, orange accent.
-   Site-wide resets, variables, and header/nav (used on every page).
-   Mobile-first. Desktop layout takes over at 800px and up.
-   ========================================================== */
-
 :root {
   --bg: #24272A;
   --grid: rgba(255, 255, 255, 0.015);
@@ -49,30 +42,15 @@ ul {
   list-style: none;
 }
 
-/* ==========================================================
-   LOGO (image, used in the desktop top nav)
-   Swap the src on the <img class="logo"> tag in index.html —
-   use repjournal-logo-transparent.png (near-white "Journal",
-   built for this dark background).
-   ========================================================== */
-
 .logo {
   display: block;
   height: 28px;
   width: auto;
 }
 
-/* ==========================================================
-   DESKTOP TOP NAV — hidden by default, shown at 800px+
-   ========================================================== */
-
 .topnav {
   display: none;
 }
-
-/* ==========================================================
-   MOBILE BOTTOM NAV — shown by default, hidden at 800px+
-   ========================================================== */
 
 .bottom-nav {
   position: fixed;
@@ -103,13 +81,8 @@ ul {
   height: 20px;
 }
 
-/* ==========================================================
-   BREAKPOINT — desktop layout takes over at 800px
-   ========================================================== */
-
 @media (min-width: 800px) {
 
-  /* show the top nav, hide the bottom nav */
   .topnav {
     display: flex;
     align-items: center;
@@ -132,7 +105,6 @@ ul {
     align-items: center;
     gap: 8px;
     padding: 9px 16px;
-    /* Reserve the active-state border so nav spacing never shifts between pages. */
     border: 1px dashed transparent;
     border-radius: 8px;
     font-size: 14px;

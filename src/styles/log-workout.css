@@ -1,12 +1,3 @@
-/* ==========================================================
-   RepJournal — Log workout
-   Uses tokens + resets from global.css. Chalkboard theme,
-   orange accent. Page-specific: main layout, exercise
-   cards, per-set inputs, sticky finish bar.
-   ========================================================== */
-
-/* ---------- page layout (mirrors dashboard's main) ---------- */
-
 .main {
 max-width: 640px;
 margin: 0 auto;
@@ -47,8 +38,6 @@ color: var(--ink);
 filter: invert(72%) sepia(6%) saturate(200%);
 cursor: pointer;
 }
-
-/* ---------- exercise list ---------- */
 
 .exercise-list {
 display: flex;
@@ -113,8 +102,6 @@ flex-shrink: 0;
 color: var(--accent);
 background: var(--accent-dim);
 }
-
-/* ---------- set table ---------- */
 
 .set-table {
 display: flex;
@@ -203,8 +190,6 @@ display: flex;
 justify-content: center;
 }
 
-/* ---------- add set / add exercise ---------- */
-
 .add-set-btn {
 display: flex;
 align-items: center;
@@ -247,8 +232,6 @@ border-color: var(--accent);
 color: var(--accent);
 }
 
-/* ---------- empty state ---------- */
-
 .empty-state {
 border: 1px dashed var(--ink-faint-2);
 border-radius: 10px;
@@ -257,8 +240,6 @@ text-align: center;
 color: var(--ink-dim);
 font-size: 14px;
 }
-
-/* ---------- sticky finish bar ---------- */
 
 .finish-bar {
 position: fixed;
@@ -307,8 +288,6 @@ color: var(--ink-faint);
 cursor: not-allowed;
 }
 
-/* ---------- validation ---------- */
-
 .field-error {
   font-size: 12px;
   color: var(--error, #e5484d);
@@ -332,8 +311,6 @@ cursor: not-allowed;
 .rpe-input.is-invalid {
   border-color: var(--error, #e5484d);
 }
-
-/* ---------- workout name field ---------- */
 
 .workout-meta {
   display: flex;
@@ -363,8 +340,6 @@ cursor: not-allowed;
   outline: none;
   border-bottom: 1px solid var(--accent);
 }
-
-/* ---------- focus-visible ---------- */
 
 .remove-exercise-btn:focus-visible,
 .remove-set-btn:focus-visible,

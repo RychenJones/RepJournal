@@ -12,8 +12,9 @@ export function isLoggedIn() {
   return pb.authStore.isValid;
 }
 
+// Return the authenticated PocketBase record, or null when signed out.
 export function getCurrentUser() {
-  return pb.authStore.model;
+  return pb.authStore.record;
 }
 
 export function requireAuth(redirectTo = '/index.html') {

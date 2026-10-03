@@ -1,6 +1,4 @@
-// RepJournal — Log workout page
-// Builds the exercise/set list, validates it, then saves to PocketBase
-// via api/workouts.js on "Finish workout".
+// Build, validate, and save a workout from the log form.
 
 import { requireAuth, getCurrentUser } from './modules/auth.js';
 import { createWorkoutWithDetails } from './modules/api/workouts.js';
@@ -36,8 +34,6 @@ const formError = document.getElementById('form-error');
 const exerciseTemplate = document.getElementById('exercise-template');
 const setRowTemplate = document.getElementById('set-row-template');
 
-// ---------- DOM-building (inline for now — only this page uses it) ----------
-
 function createSetRow(setNumber) {
   const wrap = setRowTemplate.content.firstElementChild.cloneNode(true);
   wrap.querySelector('.set-number').textContent = setNumber;
@@ -63,11 +59,7 @@ function updateFinishSummary() {
     `${setCount} set${setCount === 1 ? '' : 's'}`;
 }
 
-// ---------- initial state ----------
-
 sessionDateInput.value = toDateInputValue();
-
-// ---------- adding exercises/sets ----------
 
 function addExerciseCard() {
   const card = createExerciseCard();
@@ -118,8 +110,6 @@ exerciseList.addEventListener('input', (event) => {
 workoutNameInput.addEventListener('input', () => {
   clearError(workoutNameInput, workoutNameError);
 });
-
-// ---------- validation + data collection ----------
 
 function collectAndValidateWorkout() {
   let isValid = true;
@@ -217,8 +207,6 @@ function collectAndValidateWorkout() {
   };
 }
 
-// ---------- finish workout ----------
-
 function setSaving(isSaving) {
   finishBtn.disabled = isSaving;
   finishBtn.textContent = isSaving ? 'Saving…' : 'Finish workout';
@@ -244,7 +232,5 @@ finishBtn.addEventListener('click', async () => {
     setSaving(false);
   }
 });
-
-// ---------- start with one exercise ----------
 
 addExerciseCard();
